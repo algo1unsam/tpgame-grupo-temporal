@@ -31,30 +31,35 @@ object interfaz {
 
 object misAutos{
 
-	var property subconjunto1 = [new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(0,2)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(5,2)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(10,2)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(15,2))]
+	var property subconjunto1 = [new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(0,2)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(5,2)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(10,2)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(15,2))]
 							  
-	var property subconjunto2 = [new Vehiculo(velocidad = 500, image = "assets/auto2.png", posicionInicial = game.at(-1,3)),
-							  new Vehiculo(velocidad = 500, image = "assets/auto2.png", posicionInicial = game.at(6,3)),
-							  new Vehiculo(velocidad = 500, image = "assets/auto2.png", posicionInicial = game.at(13,3))]
+	var property subconjunto2 = [new Vehiculo(velocidad = 450, image = "assets/auto2.png", posicionInicial = game.at(-1,3)),
+							  new Vehiculo(velocidad = 450, image = "assets/auto2.png", posicionInicial = game.at(6,3)),
+							  new Vehiculo(velocidad = 450, image = "assets/auto2.png", posicionInicial = game.at(13,3))]
 							  
-	var property subconjunto3 = [new Vehiculo(velocidad = 300, image = "assets/auto4.png", posicionInicial = game.at(9,4)),
-							  new Vehiculo(velocidad = 300, image = "assets/auto4.png", posicionInicial = game.at(19,4))]
+	var property subconjunto3 = [new Vehiculo(velocidad = 250, image = "assets/auto4.png", posicionInicial = game.at(9,4)),
+							  new Vehiculo(velocidad = 250, image = "assets/auto4.png", posicionInicial = game.at(19,4))]
 							  
-	var property subconjunto4 =  [new Vehiculo(velocidad = 700, image = "assets/auto3.png", posicionInicial = game.at(0,5)),
-							  new Vehiculo(velocidad = 700, image = "assets/auto3.png", posicionInicial = game.at(4,5)),
-							  new Vehiculo(velocidad = 700, image = "assets/auto3.png", posicionInicial = game.at(8,5)),
-							  new Vehiculo(velocidad = 700, image = "assets/auto3.png", posicionInicial = game.at(12,5)),
-							  new Vehiculo(velocidad = 700, image = "assets/auto3.png", posicionInicial = game.at(16,5))]
+	var property subconjunto4 =  [new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(0,5)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(4,5)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(8,5)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(12,5)),
+							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(16,5))]
+	
+	var property subconjunto5 = [new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(5,6)),
+							  new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(10,6)),
+							  new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(15,6)),
+							  new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(20,6))]
 	
 	method todos(){
-		return subconjunto1 + subconjunto2 + subconjunto4
+		return self.movIzquierda() + self.movDerecha()
 	}
 	
 	method movIzquierda(){
-		return subconjunto1 + subconjunto3
+		return subconjunto1 + subconjunto3 + subconjunto5
 	}
 	
 	method movDerecha(){
