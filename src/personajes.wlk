@@ -21,13 +21,13 @@ class Vehiculo inherits ObjetoMovil{
 	method moverse(sentido){
 		if(sentido == "r"){
 			if (self.position().x() == 19){
-				self.position(game.at(-1, self.posicionInicial().y()))
+				self.position(game.at(0, self.posicionInicial().y()))
 			}else{
 				self.position(self.position().right(1))
 			}
 		}
 		else if (sentido == "l"){
-			if (self.position().x() == -1){
+			if (self.position().x() == 0){
 				self.position(game.at(19, self.posicionInicial().y()))
 			}else{
 				self.position(self.position().left(1))
