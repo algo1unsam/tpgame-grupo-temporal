@@ -6,6 +6,7 @@ object interfaz {
 	var property position = game.origin()
 	
 	method inicializar(){
+		vidas.setear()
 		filaInferior.setear()
 		const  filaRestringida = filaInferior.conjunto()
 		filaRestringida.forEach({fila => game.addVisual(fila)})
@@ -22,6 +23,7 @@ object interfaz {
 	}
 	
 	method pantallaCarga(){
+		game.clear()
 		self.image("assets/pantallaCarga.png")
 		game.addVisualIn(self, game.origin())
 		keyboard.enter().onPressDo({self.comenzar()})
@@ -73,9 +75,13 @@ object misAutos{
 }
 
 object vidas{
-	var property conjunto = [new Vida(position = game.at(0,0)),
-							new Vida(position = game.at(1,0)),
-							new Vida(position = game.at(2,0))]
+	var property conjunto = []
+	
+	method setear(){
+		conjunto = [new Vida(position = game.at(0,0)),
+					new Vida(position = game.at(1,0)),
+					new Vida(position = game.at(2,0))]
+	}
 }
 
 object filaInferior{

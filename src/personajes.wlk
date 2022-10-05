@@ -1,9 +1,21 @@
 import wollok.game.*
+import interfaz.*
 
 object rana {
 	var property position = game.at(9,1)
 	var property image = "assets/ranita.png"
-	var property vidas = 3
+	var cantVidas = 3
+	
+	method perderVida(){
+		cantVidas -= 1
+		const indice = vidas.conjunto().size() - 1 
+		game.removeVisual(vidas.conjunto().get(indice))
+		vidas.conjunto().remove(vidas.conjunto().get(indice))
+		
+		if(cantVidas == 0){
+			interfaz.pantallaCarga()
+		}
+	}
 }
 
 class ObjetoMovil{
@@ -33,7 +45,7 @@ class ObjetoMovil{
 
 class Vehiculo inherits ObjetoMovil{
 	method atropellar(ranita){
-		ranita.vidas(ranita.vidas()-1)
+		ranita.perderVida()
 		ranita.position(game.at(9,1))
 	}
 }
