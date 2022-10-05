@@ -2,9 +2,10 @@ import wollok.game.*
 
 object rana {
 	var property position = game.at(9,1)
-	var property image = "assets/ranota2.png"
+	var property image = "assets/ranita.png"
 	var property vidas = 3
 }
+
 class ObjetoMovil{
 	var property image = ""
 	var property posicionInicial = null
@@ -35,4 +36,9 @@ class Vehiculo inherits ObjetoMovil{
 		}
 		
 	}
+}
+
+class Vida{
+	var property image = "assets/vida.png"
+	var property position = game.origin()
 }

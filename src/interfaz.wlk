@@ -8,6 +8,7 @@ object interfaz {
 	method inicializar(){
 		const autos = misAutos.todos()
 		
+		vidas.conjunto().forEach({vida => game.addVisual(vida)})
 		autos.forEach({autito => game.addVisual(autito)})
 		game.addVisualCharacter(rana)
 		
@@ -23,7 +24,7 @@ object interfaz {
 	}
 	
 	method comenzar(){
-		self.image("assets/fondo.png")
+		self.image("assets/bg.png")
 		self.inicializar()
 	}
 	
@@ -36,12 +37,12 @@ object misAutos{
 							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(10,2)),
 							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(15,2))]
 							  
-	var property subconjunto2 = [new Vehiculo(velocidad = 450, image = "assets/auto2.png", posicionInicial = game.at(-1,3)),
-							  new Vehiculo(velocidad = 450, image = "assets/auto2.png", posicionInicial = game.at(6,3)),
-							  new Vehiculo(velocidad = 450, image = "assets/auto2.png", posicionInicial = game.at(13,3))]
+	var property subconjunto2 = [new Vehiculo(velocidad = 550, image = "assets/auto2.png", posicionInicial = game.at(-1,3)),
+							  new Vehiculo(velocidad = 550, image = "assets/auto2.png", posicionInicial = game.at(6,3)),
+							  new Vehiculo(velocidad = 550, image = "assets/auto2.png", posicionInicial = game.at(13,3))]
 							  
-	var property subconjunto3 = [new Vehiculo(velocidad = 250, image = "assets/auto4.png", posicionInicial = game.at(9,4)),
-							  new Vehiculo(velocidad = 250, image = "assets/auto4.png", posicionInicial = game.at(19,4))]
+	var property subconjunto3 = [new Vehiculo(velocidad = 350, image = "assets/auto4.png", posicionInicial = game.at(9,4)),
+							  new Vehiculo(velocidad = 350, image = "assets/auto4.png", posicionInicial = game.at(19,4))]
 							  
 	var property subconjunto4 =  [new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(0,5)),
 							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(4,5)),
@@ -49,10 +50,10 @@ object misAutos{
 							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(12,5)),
 							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(16,5))]
 	
-	var property subconjunto5 = [new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(5,6)),
-							  new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(10,6)),
-							  new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(15,6)),
-							  new Vehiculo(velocidad = 200, image = "assets/auto5.png", posicionInicial = game.at(20,6))]
+	var property subconjunto5 = [new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(5,6)),
+							  new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(10,6)),
+							  new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(15,6)),
+							  new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(20,6))]
 	
 	method todos(){
 		return self.movIzquierda() + self.movDerecha()
@@ -65,4 +66,10 @@ object misAutos{
 	method movDerecha(){
 		return subconjunto2 + subconjunto4
 	}
+}
+
+object vidas{
+	var property conjunto = [new Vida(),
+							new Vida(position = game.at(1,0)),
+							new Vida(position = game.at(2,0))]
 }
