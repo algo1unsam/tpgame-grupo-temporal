@@ -6,12 +6,16 @@ object interfaz {
 	var property position = game.origin()
 	
 	method inicializar(){
+		filaInferior.setear()
+		const  filaRestringida = filaInferior.conjunto()
+		filaRestringida.forEach({fila => game.addVisual(fila)})
 		const autos = misAutos.todos()
 		
 		vidas.conjunto().forEach({vida => game.addVisual(vida)})
 		autos.forEach({autito => game.addVisual(autito)})
 		game.addVisualCharacter(rana)
 		
+		filaRestringida.forEach({fila => game.onCollideDo(fila,{ranita => fila.devolver(ranita)})})
 		misAutos.movIzquierda().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("l")})})
 		misAutos.movDerecha().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("r")})})
 		autos.forEach({autito => game.onCollideDo(autito,{ranita => autito.atropellar(ranita)})})
@@ -69,7 +73,16 @@ object misAutos{
 }
 
 object vidas{
-	var property conjunto = [new Vida(),
+	var property conjunto = [new Vida(position = game.at(0,0)),
 							new Vida(position = game.at(1,0)),
 							new Vida(position = game.at(2,0))]
+}
+
+object filaInferior{
+	const valores = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+	var property conjunto = []
+	
+	method setear(){
+		valores.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
+	}
 }

@@ -10,14 +10,7 @@ class ObjetoMovil{
 	var property image = ""
 	var property posicionInicial = null
 	var property position = posicionInicial
-	var property velocidad = 0	
-}
-
-class Vehiculo inherits ObjetoMovil{
-	method atropellar(ranita){
-		ranita.vidas(ranita.vidas()-1)
-		ranita.position(game.at(9,1))
-	}
+	var property velocidad = 0
 	
 	method moverse(sentido){
 		if(sentido == "r"){
@@ -38,7 +31,33 @@ class Vehiculo inherits ObjetoMovil{
 	}
 }
 
+class Vehiculo inherits ObjetoMovil{
+	method atropellar(ranita){
+		ranita.vidas(ranita.vidas()-1)
+		ranita.position(game.at(9,1))
+	}
+}
+
+class Soporte inherits ObjetoMovil{
+	method sostener(ranita){
+	}
+	
+	method siguientePosicion(sentido){
+		return if(sentido == "l") game.at(self.position().x()-1, self.position().y()) else game.at(self.position().x()+1, self.position().y())
+	}
+}
+
 class Vida{
 	var property image = "assets/vida.png"
-	var property position = game.origin()
+	var property position = null
+}
+
+class ObjetoInvisible{
+	var property position = null
+	
+	method devolver(ranita){
+		if(ranita == rana){
+			ranita.position(ranita.position().up(1))
+		}
+	}
 }
