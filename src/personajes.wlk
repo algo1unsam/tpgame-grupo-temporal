@@ -98,17 +98,20 @@ object autos inherits Conjunto{
 }
 
 class Soporte inherits ObjetoMovil{
+	var property ranaSobreSoporte = false
 	method sostener(ranita){
 		game.onTick(1,"ranita sobre un tronco",{ranita.position(self.position())})
 	}
 	
 	override method moverse(){
-		if(rana.sobreSoporte()){
-			if(rana.position().x() == -1 or rana.position().x() == 20 or rana.position() != self.position()){
-				rana.perderVida()
-				rana.sobreSoporte(false)
-			}
-			rana.position(self.siguientePosicion())
+		if(rana.sobreSoporte() ){
+			if(self.ranaSobreSoporte()){
+				if(rana.position().x() == -1 or rana.position().x() == 20 or rana.position() != self.position()){
+					self.ranaSobreSoporte(false)
+				}else{
+					rana.position(self.siguientePosicion())
+				}
+			}	
 		}
 		super()
 	}
@@ -119,7 +122,8 @@ class Soporte inherits ObjetoMovil{
 }
 
 object soportes inherits Conjunto{
-	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(15,8))]
+	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(15,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(16,8))]
 	var property subc2 = []
 	var property subc3 = []
 	var property subc4 = []
@@ -131,7 +135,7 @@ object soportes inherits Conjunto{
 	
 	override method setear(){
 		super()
-		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => ranita.sobreSoporte(true)})})
+		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.ranaSobreSoporte(true) rana.sobreSoporte(true)})})
 	}
 }
 

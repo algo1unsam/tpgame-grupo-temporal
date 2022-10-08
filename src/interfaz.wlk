@@ -46,7 +46,7 @@ object rio inherits Restringido{
 	override method setear(){
 		super()
 		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
-		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1 and not rana.sobreSoporte()){self.ahogar(rana)}})})
+		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana)}})})
 	}
 	
 	method ahogar(ranita){
