@@ -125,9 +125,26 @@ class Soporte inherits ObjetoMovil{
 }
 
 object soportes inherits Conjunto{
-	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(15,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(16,8))]
-	var property subc2 = []
+	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco_p1.png", sentido = "l", posicionInicial = game.at(0,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p2.png", sentido = "l", posicionInicial = game.at(1,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p3.png", sentido = "l", posicionInicial = game.at(2,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p1.png", sentido = "l", posicionInicial = game.at(7,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p2.png", sentido = "l", posicionInicial = game.at(8,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p3.png", sentido = "l", posicionInicial = game.at(9,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p1.png", sentido = "l", posicionInicial = game.at(14,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p2.png", sentido = "l", posicionInicial = game.at(15,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco_p3.png", sentido = "l", posicionInicial = game.at(16,8))]
+						 
+	var property subc2 = [new Soporte(velocidad = 400, image = "assets/tronco_p1.png", sentido = "r", posicionInicial = game.at(4,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p2.png", sentido = "r", posicionInicial = game.at(5,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p3.png", sentido = "r", posicionInicial = game.at(6,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p1.png", sentido = "r", posicionInicial = game.at(11,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p2.png", sentido = "r", posicionInicial = game.at(12,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p3.png", sentido = "r", posicionInicial = game.at(13,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p1.png", sentido = "r", posicionInicial = game.at(18,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p2.png", sentido = "r", posicionInicial = game.at(19,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco_p3.png", sentido = "r", posicionInicial = game.at(20,9))]
+						 
 	var property subc3 = []
 	var property subc4 = []
 	var property subc5 = []
