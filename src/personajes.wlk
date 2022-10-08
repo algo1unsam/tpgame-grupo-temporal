@@ -5,6 +5,7 @@ object rana {
 	var property position = game.at(9,1)
 	var property image = "assets/ranita.png"
 	var cantVidas = 3
+	var property sobreSoporte = false
 	
 	method perderVida(){
 		cantVidas -= 1
@@ -58,7 +59,6 @@ class Conjunto{
 	method setear(){
 		self.todos().forEach({objeto => game.addVisual(objeto)})
 		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse()})})
-		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
 	}
 }
 
@@ -90,11 +90,27 @@ object autos inherits Conjunto{
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
 	}
+	
+	override method setear(){
+		super()
+		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
+	}
 }
 
 class Soporte inherits ObjetoMovil{
 	method sostener(ranita){
-		ranita.position(self.siguientePosicion())
+		game.onTick(1,"ranita sobre un tronco",{ranita.position(self.position())})
+	}
+	
+	override method moverse(){
+		if(rana.sobreSoporte()){
+			if(rana.position().x() == -1 or rana.position().x() == 20 or rana.position() != self.position()){
+				rana.perderVida()
+				rana.sobreSoporte(false)
+			}
+			rana.position(self.siguientePosicion())
+		}
+		super()
 	}
 	
 	method siguientePosicion(){
@@ -103,7 +119,7 @@ class Soporte inherits ObjetoMovil{
 }
 
 object soportes inherits Conjunto{
-	var property subc1 = []
+	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(15,8))]
 	var property subc2 = []
 	var property subc3 = []
 	var property subc4 = []
@@ -111,6 +127,11 @@ object soportes inherits Conjunto{
 	
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
+	}
+	
+	override method setear(){
+		super()
+		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => ranita.sobreSoporte(true)})})
 	}
 }
 

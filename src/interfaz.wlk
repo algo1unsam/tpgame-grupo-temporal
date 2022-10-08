@@ -6,8 +6,9 @@ object interfaz {
 	var property position = game.origin()
 	
 	method inicializar(){
-		game.addVisualCharacter(rana)		
-		[vidas,filaInferior,autos,rio].forEach({obj => obj.setear()})
+		[vidas,filaInferior,soportes,rio].forEach({obj => obj.setear()})
+		game.addVisualCharacter(rana)
+		autos.setear()
 	}
 	
 	method pantallaCarga(){
@@ -45,11 +46,12 @@ object rio inherits Restringido{
 	override method setear(){
 		super()
 		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
-		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana)}})})
+		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1 and not rana.sobreSoporte()){self.ahogar(rana)}})})
 	}
 	
 	method ahogar(ranita){
 		ranita.perderVida()
+		ranita.sobreSoporte(false)
 	}
 }
 
