@@ -61,12 +61,11 @@ class Soporte inherits ObjetoMovil{
 }
 
 class Vida{
-	var property image = "assets/vida.png"
 	var property position = null
+	var property image = "assets/vida.png"
 }
 
 class ObjetoInvisible{
-	var property image = "assets/ranita.png"
 	var property position = null
 	method devolver(ranita){
 		if(ranita.equals(rana)){

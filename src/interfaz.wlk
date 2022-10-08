@@ -10,16 +10,7 @@ object interfaz {
 		//rio.setear()
 		vidas.setear()
 		filaInferior.setear()
-		
-		const autos = misAutos.todos()
-		
-		vidas.conjunto().forEach({vida => game.addVisual(vida)})
-		autos.forEach({autito => game.addVisual(autito)})
-
-		
-		misAutos.movIzquierda().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("l")})})
-		misAutos.movDerecha().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("r")})})
-		autos.forEach({autito => game.onCollideDo(autito,{ranita => autito.atropellar(ranita)})})
+		autos.setear()
 	}
 	
 	method pantallaCarga(){
@@ -37,7 +28,7 @@ object interfaz {
 	
 }
 
-object misAutos{
+object autos{
 
 	var property subconjunto1 = [new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(0,2)),
 							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(5,2)),
@@ -73,6 +64,13 @@ object misAutos{
 	method movDerecha(){
 		return subconjunto2 + subconjunto4
 	}
+	
+	method setear(){
+		self.todos().forEach({autito => game.addVisual(autito)})
+		self.movIzquierda().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("l")})})
+		self.movDerecha().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("r")})})
+		self.todos().forEach({autito => game.onCollideDo(autito,{ranita => autito.atropellar(ranita)})})
+	}
 }
 
 object vidas{
@@ -82,18 +80,20 @@ object vidas{
 		conjunto = [new Vida(position = game.at(0,0)),
 					new Vida(position = game.at(1,0)),
 					new Vida(position = game.at(2,0))]
+					
+		conjunto.forEach({vida => game.addVisual(vida)})
 	}
 }
 
 class Restringido{
 	const filas = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 	var property conjunto = []
-	method setear(){}
+	method setear(){conjunto.clear()}
 }
 
 object filaInferior inherits Restringido{
 	override method setear(){
-		conjunto.clear()
+		super()
 		filas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
 		conjunto.forEach({celda => game.addVisual(celda)})
 		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})		
