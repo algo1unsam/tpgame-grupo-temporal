@@ -25,8 +25,9 @@ class ObjetoMovil{
 	var property posicionInicial = null
 	var property position = posicionInicial
 	var property velocidad = 0
+	var property sentido = ""
 	
-	method moverse(sentido){
+	method moverse(){
 		if(sentido == "r"){
 			if (self.position().x() == 19){
 				self.position(game.at(0, self.posicionInicial().y()))
@@ -51,57 +52,65 @@ class Vehiculo inherits ObjetoMovil{
 	}
 }
 
-object autos{
-
-	var property subconjunto1 = [new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(0,2)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(5,2)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(10,2)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto3.png", posicionInicial = game.at(15,2))]
-							  
-	var property subconjunto2 = [new Vehiculo(velocidad = 550, image = "assets/auto2.png", posicionInicial = game.at(-1,3)),
-							  new Vehiculo(velocidad = 550, image = "assets/auto2.png", posicionInicial = game.at(6,3)),
-							  new Vehiculo(velocidad = 550, image = "assets/auto2.png", posicionInicial = game.at(13,3))]
-							  
-	var property subconjunto3 = [new Vehiculo(velocidad = 350, image = "assets/auto4.png", posicionInicial = game.at(9,4)),
-							  new Vehiculo(velocidad = 350, image = "assets/auto4.png", posicionInicial = game.at(19,4))]
-							  
-	var property subconjunto4 =  [new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(0,5)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(4,5)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(8,5)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(12,5)),
-							  new Vehiculo(velocidad = 600, image = "assets/auto1.png", posicionInicial = game.at(16,5))]
-	
-	var property subconjunto5 = [new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(5,6)),
-							  new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(10,6)),
-							  new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(15,6)),
-							  new Vehiculo(velocidad = 300, image = "assets/auto5.png", posicionInicial = game.at(20,6))]
-	
-	method todos(){
-		return self.movIzquierda() + self.movDerecha()
-	}
-	
-	method movIzquierda(){
-		return subconjunto1 + subconjunto3 + subconjunto5
-	}
-	
-	method movDerecha(){
-		return subconjunto2 + subconjunto4
-	}
+class Conjunto{
+	method todos(){return null}
 	
 	method setear(){
-		self.todos().forEach({autito => game.addVisual(autito)})
-		self.movIzquierda().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("l")})})
-		self.movDerecha().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("r")})})
-		self.todos().forEach({autito => game.onCollideDo(autito,{ranita => autito.atropellar(ranita)})})
+		self.todos().forEach({objeto => game.addVisual(objeto)})
+		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse()})})
+		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
+	}
+}
+
+object autos inherits Conjunto{
+
+	var property subc1 = [new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(0,2)),
+				new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(5,2)),
+				new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(10,2)),
+				new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(15,2))]
+	
+	var property subc2 = [new Vehiculo(velocidad = 550, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(-1,3)),
+				new Vehiculo(velocidad = 550, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(6,3)),
+				new Vehiculo(velocidad = 550, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(13,3))]
+
+	var property subc3 = [new Vehiculo(velocidad = 350, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(9,4)),
+				new Vehiculo(velocidad = 350, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(19,4))]
+
+	var property subc4 =	[new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(0,5)),
+				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(4,5)),
+				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(8,5)),
+				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(12,5)),
+				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(16,5))]
+	
+	var property subc5 = [new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
+				new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
+		  		new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
+				new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
+	
+	override method todos(){
+		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
 	}
 }
 
 class Soporte inherits ObjetoMovil{
 	method sostener(ranita){
+		ranita.position(self.siguientePosicion())
 	}
 	
-	method siguientePosicion(sentido){
+	method siguientePosicion(){
 		return if(sentido == "l") game.at(self.position().x()-1, self.position().y()) else game.at(self.position().x()+1, self.position().y())
+	}
+}
+
+object soportes inherits Conjunto{
+	var property subc1 = []
+	var property subc2 = []
+	var property subc3 = []
+	var property subc4 = []
+	var property subc5 = []
+	
+	override method todos(){
+		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
 	}
 }
 
