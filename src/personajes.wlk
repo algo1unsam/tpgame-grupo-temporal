@@ -106,7 +106,10 @@ class Soporte inherits ObjetoMovil{
 	override method moverse(){
 		if(rana.sobreSoporte() ){
 			if(self.ranaSobreSoporte()){
-				if(rana.position().x() == -1 or rana.position().x() == 20 or rana.position() != self.position()){
+				if(rana.position().x() == -1 or rana.position().x() == 20){
+					self.ranaSobreSoporte(false)
+					rio.ahogar(rana)
+				}else if(rana.position() != self.position()){
 					self.ranaSobreSoporte(false)
 				}else{
 					rana.position(self.siguientePosicion())
