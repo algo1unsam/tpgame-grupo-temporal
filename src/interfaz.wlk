@@ -7,10 +7,7 @@ object interfaz {
 	
 	method inicializar(){
 		game.addVisualCharacter(rana)		
-		//rio.setear()
-		vidas.setear()
-		filaInferior.setear()
-		autos.setear()
+		[vidas,filaInferior,autos,rio].forEach({obj => obj.setear()})
 	}
 	
 	method pantallaCarga(){
@@ -86,7 +83,7 @@ object vidas{
 }
 
 class Restringido{
-	const filas = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+	const columnas = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 	var property conjunto = []
 	method setear(){conjunto.clear()}
 }
@@ -94,9 +91,22 @@ class Restringido{
 object filaInferior inherits Restringido{
 	override method setear(){
 		super()
-		filas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
+		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
 		conjunto.forEach({celda => game.addVisual(celda)})
 		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})		
+	}
+}
+
+object rio inherits Restringido{
+	const filas = [8,9,10,11,12]
+	override method setear(){
+		super()
+		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
+		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana)}})})
+	}
+	
+	method ahogar(ranita){
+		ranita.perderVida()
 	}
 }
 
