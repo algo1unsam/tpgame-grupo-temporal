@@ -6,17 +6,17 @@ object interfaz {
 	var property position = game.origin()
 	
 	method inicializar(){
+		game.addVisualCharacter(rana)		
+		//rio.setear()
 		vidas.setear()
 		filaInferior.setear()
-		const  filaRestringida = filaInferior.conjunto()
-		filaRestringida.forEach({fila => game.addVisual(fila)})
+		
 		const autos = misAutos.todos()
 		
 		vidas.conjunto().forEach({vida => game.addVisual(vida)})
 		autos.forEach({autito => game.addVisual(autito)})
-		game.addVisualCharacter(rana)
+
 		
-		filaRestringida.forEach({fila => game.onCollideDo(fila,{ranita => fila.devolver(ranita)})})
 		misAutos.movIzquierda().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("l")})})
 		misAutos.movDerecha().forEach({ autito => game.onTick(autito.velocidad(),"movimiento",{autito.moverse("r")})})
 		autos.forEach({autito => game.onCollideDo(autito,{ranita => autito.atropellar(ranita)})})
@@ -24,6 +24,7 @@ object interfaz {
 	
 	method pantallaCarga(){
 		game.clear()
+		
 		self.image("assets/pantallaCarga.png")
 		game.addVisualIn(self, game.origin())
 		keyboard.enter().onPressDo({self.comenzar()})
@@ -84,11 +85,18 @@ object vidas{
 	}
 }
 
-object filaInferior{
-	const valores = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+class Restringido{
+	const filas = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
 	var property conjunto = []
-	
-	method setear(){
-		valores.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
+	method setear(){}
+}
+
+object filaInferior inherits Restringido{
+	override method setear(){
+		conjunto.clear()
+		filas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
+		conjunto.forEach({celda => game.addVisual(celda)})
+		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})		
 	}
 }
+

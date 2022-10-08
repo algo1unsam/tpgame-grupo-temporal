@@ -11,9 +11,11 @@ object rana {
 		const indice = vidas.conjunto().size() - 1 
 		game.removeVisual(vidas.conjunto().get(indice))
 		vidas.conjunto().remove(vidas.conjunto().get(indice))
+		self.position(game.at(9,1))
 		
 		if(cantVidas == 0){
 			interfaz.pantallaCarga()
+			cantVidas = 3
 		}
 	}
 }
@@ -46,7 +48,6 @@ class ObjetoMovil{
 class Vehiculo inherits ObjetoMovil{
 	method atropellar(ranita){
 		ranita.perderVida()
-		ranita.position(game.at(9,1))
 	}
 }
 
@@ -65,11 +66,11 @@ class Vida{
 }
 
 class ObjetoInvisible{
+	var property image = "assets/ranita.png"
 	var property position = null
-	
 	method devolver(ranita){
-		if(ranita == rana){
+		if(ranita.equals(rana)){
 			ranita.position(ranita.position().up(1))
-		}
+		}	
 	}
 }
