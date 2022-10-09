@@ -8,7 +8,6 @@ object rana {
 	
 	method perderVida(){
 		cantVidas -= 1
-		rio.casilla(game.at(-1,-1))
 		const indice = vidas.conjunto().size() - 1 
 		game.removeVisual(vidas.conjunto().get(indice))
 		vidas.conjunto().remove(vidas.conjunto().get(indice))
@@ -18,6 +17,10 @@ object rana {
 			interfaz.pantallaCarga()
 			cantVidas = 3
 		}
+	}
+	
+	method tieneSoporte(){
+		return soportes.todos().any({soporte => soporte.posicionesExtra().contains(self.position())})
 	}
 }
 
@@ -98,15 +101,14 @@ object autos inherits Conjunto{
 }
 
 class Soporte inherits ObjetoMovil{
-	
 	override method moverse(){
 		if(self.posicionesExtra().contains(rana.position())){
-			if(rana.position().x() == 0 or rana.position().x() == 19){
+			if(rana.position().x() == -1 or rana.position().x() == 20){
 				rio.ahogar(rana)
 			}else{
 				rana.position(self.siguientePosicion())
 			}
-		}
+		}	
 		super()
 	}
 	
