@@ -98,19 +98,12 @@ object autos inherits Conjunto{
 }
 
 class Soporte inherits ObjetoMovil{
-	var property ranaSobreSoporte = false
-	method sostener(ranita){
-		game.onTick(1,"ranita sobre un tronco",{ranita.position(self.position())})
-	}
 	
 	override method moverse(){
-		if(rana.sobreSoporte() ){
-			if(self.ranaSobreSoporte()){
-				if(rana.position().x() == -1 or rana.position().x() == 20){
-					self.ranaSobreSoporte(false)
+		if(rana.sobreSoporte()){
+			if(self.posicionesExtra().contains(rana.position()){
+				if(rana.position().x() == 0 or rana.position().x() == 19){
 					rio.ahogar(rana)
-				}else if(rana.position() != self.position()){
-					self.ranaSobreSoporte(false)
 				}else{
 					rana.position(self.siguientePosicion())
 				}
@@ -120,34 +113,34 @@ class Soporte inherits ObjetoMovil{
 	}
 	
 	method siguientePosicion(){
-		return if(sentido == "l") game.at(self.position().x()-1, self.position().y()) else game.at(self.position().x()+1, self.position().y())
+		return if(sentido == "l") rana.position().left(1) else rana.position().right(1)
+	}
+	
+	method posicionesExtra(){
+		return [self.position(), self.position().right(1), self.position().right(2)]
 	}
 }
 
 object soportes inherits Conjunto{
-	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco_p1.png", sentido = "l", posicionInicial = game.at(0,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p2.png", sentido = "l", posicionInicial = game.at(1,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p3.png", sentido = "l", posicionInicial = game.at(2,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p1.png", sentido = "l", posicionInicial = game.at(7,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p2.png", sentido = "l", posicionInicial = game.at(8,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p3.png", sentido = "l", posicionInicial = game.at(9,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p1.png", sentido = "l", posicionInicial = game.at(14,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p2.png", sentido = "l", posicionInicial = game.at(15,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco_p3.png", sentido = "l", posicionInicial = game.at(16,8))]
+	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(0,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(7,8)),
+						 new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(14,8))]
 						 
-	var property subc2 = [new Soporte(velocidad = 400, image = "assets/tronco_p1.png", sentido = "r", posicionInicial = game.at(4,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p2.png", sentido = "r", posicionInicial = game.at(5,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p3.png", sentido = "r", posicionInicial = game.at(6,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p1.png", sentido = "r", posicionInicial = game.at(11,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p2.png", sentido = "r", posicionInicial = game.at(12,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p3.png", sentido = "r", posicionInicial = game.at(13,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p1.png", sentido = "r", posicionInicial = game.at(18,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p2.png", sentido = "r", posicionInicial = game.at(19,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco_p3.png", sentido = "r", posicionInicial = game.at(20,9))]
+	var property subc2 = [new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,9)),
+						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,9))]
 						 
-	var property subc3 = []
-	var property subc4 = []
-	var property subc5 = []
+	var property subc3 = [new Soporte(velocidad = 300, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,10)),
+						 new Soporte(velocidad = 300, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,10)),
+						 new Soporte(velocidad = 300, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,10))]
+						 
+	var property subc4 = [new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,11)),
+						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,11)),
+						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,11))]
+						 
+	var property subc5 = [new Soporte(velocidad = 200, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,12)),
+						 new Soporte(velocidad = 200, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,12)),
+						 new Soporte(velocidad = 200, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,12))]
 	
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
@@ -155,7 +148,7 @@ object soportes inherits Conjunto{
 	
 	override method setear(){
 		super()
-		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.ranaSobreSoporte(true) rana.sobreSoporte(true)})})
+		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => rana.sobreSoporte(true)})})
 	}
 }
 

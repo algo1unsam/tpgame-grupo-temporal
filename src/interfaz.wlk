@@ -45,13 +45,15 @@ object rio inherits Restringido{
 	const filas = [8,9,10,11,12]
 	override method setear(){
 		super()
+		var bandera = false
 		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
 		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana)}})})
 	}
 	
 	method ahogar(ranita){
-		ranita.perderVida()
-		ranita.sobreSoporte(false)
+		if(not rana.sobreSoporte()){
+			ranita.perderVida()				
+		}
 	}
 }
 
