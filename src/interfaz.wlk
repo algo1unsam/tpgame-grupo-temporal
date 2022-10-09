@@ -43,17 +43,23 @@ object filaInferior inherits Restringido{
 
 object rio inherits Restringido{
 	const filas = [8,9,10,11,12]
+	var property casilla = game.at(-1,-1)
 	override method setear(){
 		super()
-		var bandera = false
 		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
-		conjunto.forEach({celda => game.onTick(250,"rio mata ranita",{if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana)}})})
+		game.onTick(250,"rio mata ranita",{conjunto.forEach({celda => if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana) self.casilla(celda)}})})
 	}
 	
 	method ahogar(ranita){
-		if(not rana.sobreSoporte()){
+		if(not self.soporteCerca(casilla)){
 			ranita.perderVida()				
 		}
+	}
+	
+	method soporteCerca(celda){
+		var haySoporte = false
+		[celda.left(2),celda.left(1), celda, celda.right(1),celda.right(2)].forEach({e => if(e.allElements().first().posicionesExtra().contains(rana.position())){haySoporte = true}})
+		return haySoporte
 	}
 }
 

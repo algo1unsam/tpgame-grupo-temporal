@@ -5,10 +5,10 @@ object rana {
 	var property position = game.at(9,1)
 	var property image = "assets/ranita.png"
 	var cantVidas = 3
-	var property sobreSoporte = false
 	
 	method perderVida(){
 		cantVidas -= 1
+		rio.casilla(game.at(-1,-1))
 		const indice = vidas.conjunto().size() - 1 
 		game.removeVisual(vidas.conjunto().get(indice))
 		vidas.conjunto().remove(vidas.conjunto().get(indice))
@@ -100,14 +100,12 @@ object autos inherits Conjunto{
 class Soporte inherits ObjetoMovil{
 	
 	override method moverse(){
-		if(rana.sobreSoporte()){
-			if(self.posicionesExtra().contains(rana.position()){
-				if(rana.position().x() == 0 or rana.position().x() == 19){
-					rio.ahogar(rana)
-				}else{
-					rana.position(self.siguientePosicion())
-				}
-			}	
+		if(self.posicionesExtra().contains(rana.position())){
+			if(rana.position().x() == 0 or rana.position().x() == 19){
+				rio.ahogar(rana)
+			}else{
+				rana.position(self.siguientePosicion())
+			}
 		}
 		super()
 	}
@@ -144,11 +142,6 @@ object soportes inherits Conjunto{
 	
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
-	}
-	
-	override method setear(){
-		super()
-		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => rana.sobreSoporte(true)})})
 	}
 }
 
