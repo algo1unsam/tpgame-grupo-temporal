@@ -1,6 +1,11 @@
 import wollok.game.*
 import interfaz.*
 
+object ranaPausada{
+	var property position
+	var property image = "assets/ranita.png"
+}
+
 object rana {
 	var property position = game.at(9,1)
 	var property image = "assets/ranita.png"
@@ -8,9 +13,12 @@ object rana {
 	
 	method perderVida(){
 		cantVidas -= 1
-		const indice = vidas.conjunto().size() - 1 
-		game.removeVisual(vidas.conjunto().get(indice))
-		vidas.conjunto().remove(vidas.conjunto().get(indice))
+		const ultima = vidas.conjunto().last()
+		//const indice = vidas.conjunto().size() - 1 
+		//game.removeVisual(vidas.conjunto().get(indice))
+		game.removeVisual(ultima)
+		vidas.conjunto().remove(ultima)
+		//vidas.conjunto().remove(vidas.conjunto().get(indice))
 		self.position(game.at(9,1))
 		
 		if(cantVidas == 0){
@@ -22,6 +30,19 @@ object rana {
 	method tieneSoporte(){
 		return soportes.todos().any({soporte => soporte.posicionesExtra().contains(self.position())})
 	}
+	
+	method modoPausa(){
+		const prePos = self.position()
+		ranaPausada.position(prePos)
+		game.removeVisual(self)
+		game.addVisual(ranaPausada)
+	}
+	
+	method quitarPausa(){
+		game.removeVisual(ranaPausada)
+		game.addVisual(self)
+	}
+	
 }
 
 class ObjetoMovil{
@@ -61,6 +82,14 @@ class Conjunto{
 	
 	method setear(){
 		self.todos().forEach({objeto => game.addVisual(objeto)})
+		self.moverse()
+	}
+	
+	method detenerse(){
+		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
+	}
+	
+	method moverse(){
 		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse()})})
 	}
 }
@@ -94,6 +123,10 @@ object autos inherits Conjunto{
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
 	}
 	
+	override method detenerse(){
+		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
+	}
+	
 	override method setear(){
 		super()
 		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
@@ -101,6 +134,7 @@ object autos inherits Conjunto{
 }
 
 class Soporte inherits ObjetoMovil{
+//	var property id = true 
 	override method moverse(){
 		if(self.posicionesExtra().contains(rana.position())){
 			if(rana.position().x() == -1 or rana.position().x() == 20){
@@ -145,6 +179,10 @@ object soportes inherits Conjunto{
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
 	}
+	
+//	method recorrerSubc1(){
+//		subc1.forEach({sup => sup.id()})
+//	}
 }
 
 class Vida{

@@ -1,27 +1,105 @@
 import wollok.game.*
 import personajes.*
 
-object interfaz {
-	var property image = ""
-	var property position = game.origin()
+object startBtn{
+	var property position = game.at(7, 3)
+	var property image = "assets/playBtn.png"
 	
-	method inicializar(){
+	method presionar(){
+		self.cambiarFondo()
+		interfaz.removerBotones()
 		[vidas,filaInferior,soportes,rio].forEach({obj => obj.setear()})
 		game.addVisualCharacter(rana)
 		autos.setear()
+		keyboard.p().onPressDo({
+			if(game.getObjectsIn(game.at(6,8)).contains(cartelPausa)){
+				interfaz.quitarPausa()	
+			}else{
+				interfaz.hacerPausa()
+			}
+		})
 	}
+	
+	method cambiarFondo(){
+		interfaz.image("assets/bgTestV4def.png")
+	}
+}
+
+object instrBtn{
+	var property position = game.at(7, 1)
+	var property image = "assets/instrBtn.png"
+	
+	// tengo que hacer la pantalla de instrucciones
+	method presionar(){}
+	
+	method cambiarFondo(){}
+}
+
+object flecha{
+	var property position = game.at(6,3)
+	var property image = "assets/flecha.png"
+	
+	method seleccionar(){
+		const selecPos = game.at(self.position().x()+1, self.position().y())
+		const seleccion = game.getObjectsIn(selecPos)
+		
+		seleccion.first().presionar()
+	}
+}
+
+object cartelPausa{
+	var property position = game.at(6, 8)
+	var property image = "assets/cartelPausa.png"
+	
+	method pausar(){
+		rana.modoPausa()
+		soportes.detenerse()
+		autos.detenerse()
+	}
+	
+	method reanudar(){
+		rana.quitarPausa()
+		soportes.moverse()
+		autos.moverse()
+	}
+}
+
+
+object interfaz {
+	var property image = ""
+	var property position = game.origin()
+	var property botones = [startBtn, instrBtn, flecha]
 	
 	method pantallaCarga(){
 		game.clear()
-		
 		self.image("assets/pantallaCarga.png")
 		game.addVisualIn(self, game.origin())
-		keyboard.enter().onPressDo({self.comenzar()})
+		
+		self.hacerBotones()
 	}
 	
-	method comenzar(){
-		self.image("assets/bg.png")
-		self.inicializar()
+	method hacerBotones(){
+		botones.forEach({btn => game.addVisual(btn)})
+		
+		keyboard.down().onPressDo({flecha.position(game.at(6,1))})
+		keyboard.up().onPressDo({flecha.position(game.at(6,3))})
+		keyboard.enter().onPressDo({flecha.seleccionar()})
+	}	
+	
+	method hacerPausa(){
+		game.addVisual(cartelPausa)
+		keyboard.m().onPressDo({self.pantallaCarga()})
+		
+		cartelPausa.pausar()
+	}
+	
+	method quitarPausa(){
+		game.removeVisual(cartelPausa)
+		cartelPausa.reanudar()
+	}
+	
+	method removerBotones(){
+		botones.forEach({btn => game.removeVisual(btn)})
 	}
 	
 }
