@@ -8,9 +8,8 @@ object startBtn{
 	method presionar(){
 		self.cambiarFondo()
 		interfaz.removerBotones()
-		[vidas,filaInferior,soportes,rio].forEach({obj => obj.setear()})
+		[vidas,filaInferior,soportes,rio,autos,mosca].forEach({obj => obj.setear()})
 		game.addVisualCharacter(rana)
-		autos.setear()
 		keyboard.p().onPressDo({
 			if(game.getObjectsIn(game.at(6,8)).contains(cartelPausa)){
 				interfaz.quitarPausa()	
@@ -19,6 +18,7 @@ object startBtn{
 			}
 		})
 	}
+	
 	
 	method cambiarFondo(){
 		interfaz.image("assets/bgTestV4def.png")
@@ -100,6 +100,22 @@ object interfaz {
 	
 	method removerBotones(){
 		botones.forEach({btn => game.removeVisual(btn)})
+	}
+	
+	method victoria(){
+		game.clear()
+		self.image("assets/pantallaVictoria.png")
+		game.addVisualIn(self, game.origin())
+		keyboard.s().onPressDo({game.stop()}) 
+	}
+	
+	method derrota(){
+		game.clear()
+		self.image("assets/pantallaDerrota.png")
+		game.addVisualIn(self, game.origin())
+		keyboard.s().onPressDo({game.stop()})
+		keyboard.enter().onPressDo({self.pantallaCarga()})
+		 
 	}
 	
 }

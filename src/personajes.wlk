@@ -22,7 +22,7 @@ object rana {
 		self.position(game.at(9,1))
 		
 		if(cantVidas == 0){
-			interfaz.pantallaCarga()
+			interfaz.derrota()
 			cantVidas = 3
 		}
 	}
@@ -208,5 +208,15 @@ class ObjetoInvisible{
 		if(ranita.equals(rana)){
 			ranita.position(ranita.position().up(1))
 		}	
+	}
+}
+
+object mosca{
+	const lista = [1,3,5,7,9,11,13,15,17,19]
+	var property image = "assets/mosca.png"
+	var property position = game.at(lista.anyOne() ,13) 
+	method setear(){
+		game.addVisual(self)
+		game.whenCollideDo(self, {juego => interfaz.victoria()})
 	}
 }
