@@ -7,18 +7,54 @@ object ranaPausada{
 }
 
 object rana {
+	var property id = true 
 	var property position = game.at(9,1)
 	var property image = "assets/ranita.png"
 	var cantVidas = 3
 	
+	method setearListeners(){
+		keyboard.up().onPressDo({
+			if(self.existeRanita()){				
+				self.chequearColision()
+			}
+		})
+		keyboard.down().onPressDo({
+			if(self.existeRanita()){				
+				self.chequearColision()
+			}
+		})
+		keyboard.right().onPressDo({
+			if(self.existeRanita()){				
+				self.chequearColision()
+			}
+		})
+		keyboard.left().onPressDo({
+			if(self.existeRanita()){				
+				self.chequearColision()
+			}
+		})
+	}
+	
+	method existeRanita(){
+		return game.allVisuals().contains(self)
+	}
+	
+	method chequearColision(){
+		if(self.ranaRio() && !self.tieneSoporte()){
+			self.perderVida()
+		}
+	}
+	
+	method ranaRio(){
+		return self.position().y() >= 8 && self.position().y() <= 12 
+	}
+	
+	
 	method perderVida(){
 		cantVidas -= 1
 		const ultima = vidas.conjunto().last()
-		//const indice = vidas.conjunto().size() - 1 
-		//game.removeVisual(vidas.conjunto().get(indice))
 		game.removeVisual(ultima)
 		vidas.conjunto().remove(ultima)
-		//vidas.conjunto().remove(vidas.conjunto().get(indice))
 		self.position(game.at(9,1))
 		
 		if(cantVidas == 0){
@@ -40,7 +76,12 @@ object rana {
 	
 	method quitarPausa(){
 		game.removeVisual(ranaPausada)
+		self.position(ranaPausada.position())
 		game.addVisual(self)
+	}
+	
+	method setear(){
+		self.position(game.at(9,1))
 	}
 	
 }
@@ -51,6 +92,7 @@ class ObjetoMovil{
 	var property position = posicionInicial
 	var property velocidad = 0
 	var property sentido = ""
+
 	
 	method moverse(){
 		if(sentido == "r"){
@@ -72,6 +114,7 @@ class ObjetoMovil{
 }
 
 class Vehiculo inherits ObjetoMovil{
+	var property id = false
 	method atropellar(ranita){
 		ranita.perderVida()
 	}
@@ -134,7 +177,7 @@ object autos inherits Conjunto{
 }
 
 class Soporte inherits ObjetoMovil{
-//	var property id = true 
+	var property id = true 
 	override method moverse(){
 		if(self.posicionesExtra().contains(rana.position())){
 			if(rana.position().x() == -1 or rana.position().x() == 20){
@@ -214,9 +257,14 @@ class ObjetoInvisible{
 object mosca{
 	const lista = [1,3,5,7,9,11,13,15,17,19]
 	var property image = "assets/mosca.png"
-	var property position = game.at(lista.anyOne() ,13) 
+	var property position
 	method setear(){
+		self.position(game.at(self.crearX(), 13))
 		game.addVisual(self)
 		game.whenCollideDo(self, {juego => interfaz.victoria()})
+	}
+	
+	method crearX(){
+		return lista.anyOne()
 	}
 }

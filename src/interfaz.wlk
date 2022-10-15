@@ -6,10 +6,11 @@ object startBtn{
 	var property image = "assets/playBtn.png"
 	
 	method presionar(){
+		game.clear()
 		self.cambiarFondo()
-		interfaz.removerBotones()
-		[vidas,filaInferior,soportes,rio,autos,mosca].forEach({obj => obj.setear()})
+		[vidas,filaInferior,soportes,rio,autos,mosca,rana].forEach({obj => obj.setear()})
 		game.addVisualCharacter(rana)
+		rana.setearListeners()
 		keyboard.p().onPressDo({
 			if(game.getObjectsIn(game.at(6,8)).contains(cartelPausa)){
 				interfaz.quitarPausa()	
@@ -21,18 +22,24 @@ object startBtn{
 	
 	
 	method cambiarFondo(){
-		interfaz.image("assets/bgTestV4def.png")
+		interfaz.cambiarPantalla("assets/bgTestV4def.png")
 	}
+	
 }
 
 object instrBtn{
 	var property position = game.at(7, 1)
 	var property image = "assets/instrBtn.png"
 	
-	// tengo que hacer la pantalla de instrucciones
-	method presionar(){}
+	method presionar(){
+		game.clear()
+		self.cambiarFondo()
+		keyboard.v().onPressDo({interfaz.pantallaCarga()})
+	}
 	
-	method cambiarFondo(){}
+	method cambiarFondo(){
+		interfaz.cambiarPantalla("assets/instrucciones.png")
+	}
 }
 
 object flecha{
@@ -72,13 +79,14 @@ object interfaz {
 	
 	method pantallaCarga(){
 		game.clear()
-		self.image("assets/pantallaCarga.png")
-		game.addVisualIn(self, game.origin())
+		console.println(self.image())
+		self.cambiarPantalla("assets/pantallaCarga.png")
 		
 		self.hacerBotones()
 	}
 	
 	method hacerBotones(){
+		console.println("hago buttons")
 		botones.forEach({btn => game.addVisual(btn)})
 		
 		keyboard.down().onPressDo({flecha.position(game.at(6,1))})
@@ -98,24 +106,23 @@ object interfaz {
 		cartelPausa.reanudar()
 	}
 	
-	method removerBotones(){
-		botones.forEach({btn => game.removeVisual(btn)})
-	}
-	
 	method victoria(){
 		game.clear()
-		self.image("assets/pantallaVictoria.png")
-		game.addVisualIn(self, game.origin())
-		keyboard.s().onPressDo({game.stop()}) 
+		self.cambiarPantalla("assets/pantallaVictoria.png")
+		keyboard.s().onPressDo({self.pantallaCarga()}) 
 	}
 	
 	method derrota(){
 		game.clear()
-		self.image("assets/pantallaDerrota.png")
-		game.addVisualIn(self, game.origin())
-		keyboard.s().onPressDo({game.stop()})
+		self.cambiarPantalla("assets/pantallaDerrota.png")
+		keyboard.s().onPressDo({self.pantallaCarga()})
 		keyboard.enter().onPressDo({self.pantallaCarga()})
-		 
+	}
+	
+	method cambiarPantalla(img){
+		console.println("pantalla enviada para cambiar: " + img)
+		self.image(img)
+		game.addVisual(self)
 	}
 	
 }
@@ -141,7 +148,6 @@ object rio inherits Restringido{
 	override method setear(){
 		super()
 		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
-		game.onTick(250,"rio mata ranita",{conjunto.forEach({celda => if(rana.position() == celda and celda.allElements().size() == 1){self.ahogar(rana)}})})
 	}
 	
 	method ahogar(ranita){
