@@ -8,7 +8,9 @@ object startBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		[vidas,filaInferior,soportes,rio,autos,mosca,rana].forEach({obj => obj.setear()})
+		[vidas,filaInferior,rio,mosca,rana].forEach({obj => obj.setear()})
+		soportes.setear(-3,22)
+		autos.setear(0,19)
 		game.addVisualCharacter(rana)
 		rana.setearListeners()
 		keyboard.p().onPressDo({
@@ -66,8 +68,8 @@ object cartelPausa{
 	
 	method reanudar(){
 		rana.quitarPausa()
-		soportes.moverse()
-		autos.moverse()
+		soportes.moverse(-3,22)
+		autos.moverse(0,19)
 	}
 }
 

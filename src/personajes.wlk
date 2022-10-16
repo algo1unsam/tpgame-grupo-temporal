@@ -94,17 +94,17 @@ class ObjetoMovil{
 	var property sentido = ""
 
 	
-	method moverse(){
+	method moverse(x,y){
 		if(sentido == "r"){
-			if (self.position().x() == 19){
-				self.position(game.at(0, self.posicionInicial().y()))
+			if (self.position().x() == y){
+				self.position(game.at(x, self.posicionInicial().y()))
 			}else{
 				self.position(self.position().right(1))
 			}
 		}
 		else if (sentido == "l"){
-			if (self.position().x() == 0){
-				self.position(game.at(19, self.posicionInicial().y()))
+			if (self.position().x() == x){
+				self.position(game.at(y, self.posicionInicial().y()))
 			}else{
 				self.position(self.position().left(1))
 			}
@@ -123,17 +123,17 @@ class Vehiculo inherits ObjetoMovil{
 class Conjunto{
 	method todos(){return null}
 	
-	method setear(){
+	method setear(x,y){
 		self.todos().forEach({objeto => game.addVisual(objeto)})
-		self.moverse()
+		self.moverse(x,y)
 	}
 	
 	method detenerse(){
 		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
 	}
 	
-	method moverse(){
-		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse()})})
+	method moverse(x,y){
+		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse(x,y)})})
 	}
 }
 
@@ -170,23 +170,23 @@ object autos inherits Conjunto{
 		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
 	}
 	
-	override method setear(){
-		super()
+	override method setear(x,y){
+		super(x,y)
 		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
 	}
 }
 
 class Soporte inherits ObjetoMovil{
 	var property id = true 
-	override method moverse(){
+	override method moverse(x,y){
 		if(self.posicionesExtra().contains(rana.position())){
 			if(rana.position().x() == -1 or rana.position().x() == 20){
-				rio.ahogar(rana)
+				rana.perderVida()
 			}else{
 				rana.position(self.siguientePosicion())
 			}
 		}	
-		super()
+		super(x,y)
 	}
 	
 	method siguientePosicion(){
