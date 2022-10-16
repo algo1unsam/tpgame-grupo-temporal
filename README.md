@@ -12,8 +12,8 @@
 
 ## Reglas de Juego / Instrucciones
 
-El objetivo del juego es llevar una rana (inicialmente en la parte inferior de la pantalla) a todas y cada una de las casillas vacías en la parte superior de la misma, pasando por distintos obstáculos (vehículos y un rio). La rana comienza la partida con tres vidas que se decrementan cada vez que es chocada por un vehículo o cae en el río (la única forma de atravesar este último es subiéndose a objetos en el agua como troncos, etc).
-Una vez que cumplió el objetivo la rana pasa al siguiente nivel, donde se aumenta la velocidad de los vehículos y demás objetos móviles en el mapa. Inicialente no existe un límite en cuanto al nivel.
+El objetivo del juego es hacer que una rana (inicialmente en la parte inferior de la pantalla) atrape una mosca en la ubicación opuesta del mapa, pasando por distintos obstáculos (vehículos y un rio). La rana comienza la partida con tres vidas que se decrementan cada vez que es chocada por un vehículo o cae en el río (la única forma de atravesar este último es subiéndose a objetos en el agua como troncos, etc).
+Una vez que cumplió el objetivo su puntuación aumenta, subiendo gradualmente la velocidad de los vehículos y demás objetos móviles en el mapa. Inicialente no existe un límite en cuanto a la puntuación y velocidad.
 
 
 ## Otros
