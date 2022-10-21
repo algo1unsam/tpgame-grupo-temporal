@@ -169,9 +169,7 @@ object score{
 		}
 		else{
 			puntos += 1
-			[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() conjunto.eliminarObjetos()})
-			soportes.setear(-3,22)
-			autos.setear(0,19)
+			[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() })
 			rana.position(game.at(9,1))
 		}
 	}

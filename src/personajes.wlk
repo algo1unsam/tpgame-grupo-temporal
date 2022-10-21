@@ -137,7 +137,9 @@ class Conjunto{
 	}
 	
 	method aumentarVelocidades(){
-		self.todos().forEach({obj => obj.velocidad((obj.velocidad()/2).div(1))})
+		self.todos().forEach({obj => obj.velocidad(obj.velocidad().div(2))})
+		self.detenerse()
+		self.moverse(0,22)
 	}
 	
 	method eliminarObjetos(){
