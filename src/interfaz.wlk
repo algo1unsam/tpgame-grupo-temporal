@@ -8,7 +8,7 @@ object startBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		[vidas,filaInferior,rio,mosca,rana].forEach({obj => obj.setear()})
+		[vidas,filaInferior,rio,mosca,score,rana].forEach({obj => obj.setear()})
 		soportes.setear(-3,22)
 		autos.setear(0,19)
 		game.addVisualCharacter(rana)
@@ -159,3 +159,20 @@ object rio inherits Restringido{
 	}
 }
 
+object score{
+	var puntos = 0
+	
+	method subirPuntos(){
+		if(puntos == 3){
+			self.setear()
+			interfaz.victoria()
+		}
+		else{
+			puntos += 1
+			rana.position(game.at(9,1))
+		}
+	}
+	method setear(){
+		puntos = 0
+	}
+}

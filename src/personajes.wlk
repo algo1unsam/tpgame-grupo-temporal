@@ -161,7 +161,7 @@ object autos inherits Conjunto{
 				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(12,5)),
 				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(16,5))]
 	
-	var property subc5 = [new Vehiculo(velocidad = velocidad3, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
+	var property subc5 = [new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
 				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
 		  		new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
 				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
@@ -270,7 +270,7 @@ object mosca{
 	method setear(){
 		self.position(game.at(self.crearX(), 13))
 		game.addVisual(self)
-		game.whenCollideDo(self, {juego => interfaz.victoria()})
+		game.whenCollideDo(self, {ranita => score.subirPuntos()})
 	}
 	
 	method crearX(){
