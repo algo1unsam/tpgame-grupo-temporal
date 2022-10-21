@@ -163,12 +163,15 @@ object score{
 	var puntos = 0
 	
 	method subirPuntos(){
-		if(puntos == 3){
+		if(puntos == 2){
 			self.setear()
 			interfaz.victoria()
 		}
 		else{
 			puntos += 1
+			[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() conjunto.eliminarObjetos()})
+			soportes.setear(-3,22)
+			autos.setear(0,19)
 			rana.position(game.at(9,1))
 		}
 	}

@@ -135,6 +135,14 @@ class Conjunto{
 	method moverse(x,y){
 		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse(x,y)})})
 	}
+	
+	method aumentarVelocidades(){
+		self.todos().forEach({obj => obj.velocidad((obj.velocidad()/2).div(1))})
+	}
+	
+	method eliminarObjetos(){
+		self.todos().forEach({obj => game.removeVisual(obj)})
+	}
 }
 
 object autos inherits Conjunto{
