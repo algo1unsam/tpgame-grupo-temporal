@@ -138,29 +138,33 @@ class Conjunto{
 }
 
 object autos inherits Conjunto{
+	const velocidad1 = 600
+	const velocidad2 = 550
+	const velocidad3 = 350
+	const velocidad4 = 300
 
-	var property subc1 = [new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(0,2)),
-				new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(5,2)),
-				new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(10,2)),
-				new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(15,2))]
+	var property subc1 = [new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(0,2)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(5,2)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(10,2)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(15,2))]
 	
-	var property subc2 = [new Vehiculo(velocidad = 550, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(-1,3)),
-				new Vehiculo(velocidad = 550, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(6,3)),
-				new Vehiculo(velocidad = 550, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(13,3))]
+	var property subc2 = [new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(-1,3)),
+				new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(6,3)),
+				new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(13,3))]
 
-	var property subc3 = [new Vehiculo(velocidad = 350, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(9,4)),
-				new Vehiculo(velocidad = 350, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(19,4))]
+	var property subc3 = [new Vehiculo(velocidad = velocidad3, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(9,4)),
+				new Vehiculo(velocidad = velocidad3, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(19,4))]
 
-	var property subc4 =	[new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(0,5)),
-				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(4,5)),
-				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(8,5)),
-				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(12,5)),
-				new Vehiculo(velocidad = 600, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(16,5))]
+	var property subc4 =	[new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(0,5)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(4,5)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(8,5)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(12,5)),
+				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(16,5))]
 	
-	var property subc5 = [new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
-				new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
-		  		new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
-				new Vehiculo(velocidad = 300, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
+	var property subc5 = [new Vehiculo(velocidad = velocidad3, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
+				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
+		  		new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
+				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
 	
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
@@ -199,25 +203,30 @@ class Soporte inherits ObjetoMovil{
 }
 
 object soportes inherits Conjunto{
-	var property subc1 = [new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(0,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(7,8)),
-						 new Soporte(velocidad = 600, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(14,8))]
+	const velocidad1 = 600
+	const velocidad2 = 400
+	const velocidad3 = 300
+	const velocidad4 = 200
+	
+	var property subc1 = [new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(0,8)),
+						 new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(7,8)),
+						 new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(14,8))]
 						 
-	var property subc2 = [new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,9)),
-						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,9))]
+	var property subc2 = [new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,9)),
+						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,9)),
+						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,9))]
 						 
-	var property subc3 = [new Soporte(velocidad = 300, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,10)),
-						 new Soporte(velocidad = 300, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,10)),
-						 new Soporte(velocidad = 300, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,10))]
+	var property subc3 = [new Soporte(velocidad = velocidad3, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,10)),
+						 new Soporte(velocidad = velocidad3, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,10)),
+						 new Soporte(velocidad = velocidad3, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,10))]
 						 
-	var property subc4 = [new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,11)),
-						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,11)),
-						 new Soporte(velocidad = 400, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,11))]
+	var property subc4 = [new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,11)),
+						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,11)),
+						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,11))]
 						 
-	var property subc5 = [new Soporte(velocidad = 200, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,12)),
-						 new Soporte(velocidad = 200, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,12)),
-						 new Soporte(velocidad = 200, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,12))]
+	var property subc5 = [new Soporte(velocidad = velocidad4, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,12)),
+						 new Soporte(velocidad = velocidad4, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,12)),
+						 new Soporte(velocidad = velocidad4, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,12))]
 	
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
