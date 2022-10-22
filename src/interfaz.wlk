@@ -1,5 +1,7 @@
 import wollok.game.*
 import personajes.*
+import autos.*
+import soportes.*
 
 object startBtn{
 	var property position = game.at(7, 3)
@@ -8,9 +10,7 @@ object startBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		[vidas,filaInferior,rio,mosca,score,rana].forEach({obj => obj.setear()})
-		soportes.setear(-3,22)
-		autos.setear(0,19)
+		[vidas,filaInferior,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
 		game.addVisualCharacter(rana)
 		rana.setearListeners()
 		keyboard.p().onPressDo({
@@ -68,8 +68,8 @@ object cartelPausa{
 	
 	method reanudar(){
 		rana.quitarPausa()
-		soportes.moverse(-3,22)
-		autos.moverse(0,19)
+		soportes.moverse()
+		autos.moverse()
 	}
 }
 
@@ -141,6 +141,14 @@ object filaInferior inherits Restringido{
 		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
 		conjunto.forEach({celda => game.addVisual(celda)})
 		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})		
+	}
+}
+
+object filaSuperior inherits Restringido{
+	override method setear(){
+		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,13)))})
+		conjunto.forEach({celda => game.addVisual(celda)})
+		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})
 	}
 }
 

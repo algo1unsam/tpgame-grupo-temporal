@@ -1,5 +1,7 @@
 import wollok.game.*
+import autos.*
 import interfaz.*
+import soportes.*
 
 object ranaPausada{
 	var property position
@@ -92,54 +94,53 @@ class ObjetoMovil{
 	var property position = posicionInicial
 	var property velocidad = 0
 	var property sentido = ""
-
+	var property x = self.limite().get(0)
+	var property y = self.limite().get(1)
 	
-	method moverse(x,y){
+	method moverse(){
+		
 		if(sentido == "r"){
-			if (self.position().x() == y){
-				self.position(game.at(x, self.posicionInicial().y()))
+			if (self.position().x() == self.y()){
+				self.position(game.at(self.x(), self.posicionInicial().y()))
 			}else{
 				self.position(self.position().right(1))
 			}
 		}
 		else if (sentido == "l"){
-			if (self.position().x() == x){
-				self.position(game.at(y, self.posicionInicial().y()))
+			if (self.position().x() == self.x()){
+				self.position(game.at(self.y(), self.posicionInicial().y()))
 			}else{
 				self.position(self.position().left(1))
 			}
 		}
 		
 	}
+	
+	method limite(){return null}
 }
 
-class Vehiculo inherits ObjetoMovil{
-	var property id = false
-	method atropellar(ranita){
-		ranita.perderVida()
-	}
-}
+
 
 class Conjunto{
 	method todos(){return null}
 	
-	method setear(x,y){
+	method setear(){
 		self.todos().forEach({objeto => game.addVisual(objeto)})
-		self.moverse(x,y)
+		self.moverse()
 	}
 	
 	method detenerse(){
 		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
 	}
 	
-	method moverse(x,y){
-		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse(x,y)})})
+	method moverse(){
+		self.todos().forEach({objeto => game.onTick(objeto.velocidad(),"movimiento",{objeto.moverse()})})
 	}
 	
 	method aumentarVelocidades(){
-		self.todos().forEach({obj => obj.velocidad(obj.velocidad().div(2))})
+		self.todos().forEach({obj => obj.velocidad(obj.velocidad().div(1.1))})
 		self.detenerse()
-		self.moverse(0,22)
+		self.moverse()
 	}
 	
 	method eliminarObjetos(){
@@ -147,105 +148,9 @@ class Conjunto{
 	}
 }
 
-object autos inherits Conjunto{
-	const velocidad1 = 600
-	const velocidad2 = 550
-	const velocidad3 = 350
-	const velocidad4 = 300
 
-	var property subc1 = [new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(0,2)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(5,2)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(10,2)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(15,2))]
-	
-	var property subc2 = [new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(-1,3)),
-				new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(6,3)),
-				new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(13,3))]
 
-	var property subc3 = [new Vehiculo(velocidad = velocidad3, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(9,4)),
-				new Vehiculo(velocidad = velocidad3, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(19,4))]
 
-	var property subc4 =	[new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(0,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(4,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(8,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(12,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(16,5))]
-	
-	var property subc5 = [new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
-				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
-		  		new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
-				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
-	
-	override method todos(){
-		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
-	}
-	
-	override method detenerse(){
-		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
-	}
-	
-	override method setear(x,y){
-		super(x,y)
-		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
-	}
-}
-
-class Soporte inherits ObjetoMovil{
-	var property id = true 
-	override method moverse(x,y){
-		if(self.posicionesExtra().contains(rana.position())){
-			if(rana.position().x() == -1 or rana.position().x() == 20){
-				rana.perderVida()
-			}else{
-				rana.position(self.siguientePosicion())
-			}
-		}	
-		super(x,y)
-	}
-	
-	method siguientePosicion(){
-		return if(sentido == "l") rana.position().left(1) else rana.position().right(1)
-	}
-	
-	method posicionesExtra(){
-		return [self.position(), self.position().right(1), self.position().right(2)]
-	}
-}
-
-object soportes inherits Conjunto{
-	const velocidad1 = 600
-	const velocidad2 = 400
-	const velocidad3 = 300
-	const velocidad4 = 200
-	
-	var property subc1 = [new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(0,8)),
-						 new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(7,8)),
-						 new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(14,8))]
-						 
-	var property subc2 = [new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,9)),
-						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,9)),
-						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,9))]
-						 
-	var property subc3 = [new Soporte(velocidad = velocidad3, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,10)),
-						 new Soporte(velocidad = velocidad3, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,10)),
-						 new Soporte(velocidad = velocidad3, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,10))]
-						 
-	var property subc4 = [new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(4,11)),
-						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(11,11)),
-						 new Soporte(velocidad = velocidad2, image = "assets/tronco.png", sentido = "r", posicionInicial = game.at(18,11))]
-						 
-	var property subc5 = [new Soporte(velocidad = velocidad4, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(4,12)),
-						 new Soporte(velocidad = velocidad4, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(11,12)),
-						 new Soporte(velocidad = velocidad4, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(18,12))]
-	
-	override method todos(){
-		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
-	}
-	
-//	method recorrerSubc1(){
-//		subc1.forEach({sup => sup.id()})
-//	}
-}
 
 class Vida{
 	var property position = null
