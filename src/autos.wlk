@@ -1,6 +1,9 @@
 import wollok.game.*
 import interfaz.*
 import personajes.*
+import filasExteriores.*
+import rio.*
+import personajesAuxiliares.*
 
 class Vehiculo inherits ObjetoMovil{
 	var property id = false

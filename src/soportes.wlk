@@ -1,6 +1,10 @@
 import wollok.game.*
 import interfaz.*
 import personajes.*
+import filasExteriores.*
+import autos.*
+import rio.*
+import personajesAuxiliares.*
 
 class Soporte inherits ObjetoMovil{
 	var property id = true 

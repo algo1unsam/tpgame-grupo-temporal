@@ -2,6 +2,9 @@ import wollok.game.*
 import personajes.*
 import autos.*
 import soportes.*
+import filasExteriores.*
+import rio.*
+import personajesAuxiliares.*
 
 object startBtn{
 	var property position = game.at(7, 3)
@@ -128,60 +131,11 @@ object interfaz {
 	
 }
 
-class Restringido{
-	const columnas = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
-	var property conjunto = []
-	method setear(){conjunto.clear()}
-}
-
-object filaInferior inherits Restringido{
-	override method setear(){
-		super()
-		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
-		conjunto.forEach({celda => game.addVisual(celda)})
-		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolverArriba(ranita)})})		
-	}
-}
-
-object filaSuperior inherits Restringido{
-	override method setear(){
-		columnas.forEach({num => if(not nenufar.celdas().contains(num)){conjunto.add(new ObjetoInvisible(position = game.at(num,14)))}})
-		conjunto.forEach({celda => game.addVisual(celda)})
-		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolverAbajo(ranita)})})
-	}
-}
-
-object rio inherits Restringido{
-	const filas = [8,9,10,11,12]
-	var property ahogoRanita = true
-	override method setear(){
-		super()
-		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
-	}
-	
-	method ahogar(ranita){
-		if(not rana.tieneSoporte()){
-			ranita.perderVida()
-		}
-	}
-}
-
-object nenufar inherits Restringido{
-	const property celdas = [0,2,4,6,8,10,12,14,16,18]
-	
-	override method setear(){
-		super()
-		celdas.forEach({celda => conjunto.add(new ObjetoInvisible(position = game.at(celda,13)))})
-		conjunto.forEach({celda => game.addVisual(celda)})
-		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => ranita.perderVida()})})
-	}
-}
-
 object score{
 	var puntos = 0
 	
 	method subirPuntos(){
-		if(puntos == 2){
+		if(puntos == 4){
 			self.setear()
 			interfaz.victoria()
 		}
