@@ -132,7 +132,10 @@ object interfaz {
 }
 
 object score{
-	var puntos = 0
+	var property position = game.at(0,14)
+	var property textColor = "FFFFFFFF"
+	var property puntos = 0
+	var property text = (0).toString() + "/5"
 	
 	method subirPuntos(){
 		if(puntos == 4){
@@ -141,11 +144,15 @@ object score{
 		}
 		else{
 			puntos += 1
+			self.text((puntos).toString() + "/5")
 			[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() })
-			rana.position(game.at(9,1))
+			rana.position(game.at(9,1))	
 		}
 	}
+	
 	method setear(){
+		game.addVisual(self)
 		puntos = 0
+		text = (0).toString() + "/5"
 	}
 }
