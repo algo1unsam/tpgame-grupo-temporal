@@ -66,6 +66,9 @@ object rana {
 			interfaz.derrota()
 			cantVidas = 3
 		}
+		
+		mosca.borrar()
+		mosca.setear()
 	}
 	
 	method tieneSoporte(){
@@ -113,6 +116,7 @@ object mosca{
 	const lista = [1,3,5,7,9,11,13,15,17,19]
 	var property image = "assets/mosca.png"
 	var property position
+	
 	method setear(){
 		self.position(game.at(self.crearX(), 13))
 		game.addVisual(self)
@@ -121,6 +125,10 @@ object mosca{
 	
 	method crearX(){
 		return lista.anyOne()
+	}
+	
+	method borrar(){
+		game.removeVisual(self)
 	}
 }
 
