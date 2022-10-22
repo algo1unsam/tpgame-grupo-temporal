@@ -148,10 +148,6 @@ class Conjunto{
 	}
 }
 
-
-
-
-
 class Vida{
 	var property position = null
 	var property image = "assets/vida.png"
@@ -166,14 +162,21 @@ object vidas{
 					new Vida(position = game.at(2,0))]
 					
 		conjunto.forEach({vida => game.addVisual(vida)})
+		rana.cantVidas(3)
 	}
 }
 
 class ObjetoInvisible{
 	var property position = null
-	method devolver(ranita){
+	method devolverArriba(ranita){
 		if(ranita.equals(rana)){
 			ranita.position(ranita.position().up(1))
+		}	
+	}
+	
+	method devolverAbajo(ranita){
+		if(ranita.equals(rana)){
+			ranita.position(ranita.position().down(1))
 		}	
 	}
 }

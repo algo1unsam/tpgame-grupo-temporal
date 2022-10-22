@@ -10,7 +10,7 @@ object startBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		[vidas,filaInferior,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
+		[vidas,filaInferior,filaSuperior,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
 		game.addVisualCharacter(rana)
 		rana.setearListeners()
 		keyboard.p().onPressDo({
@@ -83,7 +83,6 @@ object interfaz {
 		game.clear()
 		console.println(self.image())
 		self.cambiarPantalla("assets/pantallaCarga.png")
-		rana.cantVidas(3)
 		self.hacerBotones()
 	}
 	
@@ -140,15 +139,15 @@ object filaInferior inherits Restringido{
 		super()
 		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,0)))})
 		conjunto.forEach({celda => game.addVisual(celda)})
-		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})		
+		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolverArriba(ranita)})})		
 	}
 }
 
 object filaSuperior inherits Restringido{
 	override method setear(){
-		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,13)))})
+		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,14)))})
 		conjunto.forEach({celda => game.addVisual(celda)})
-		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolver(ranita)})})
+		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolverAbajo(ranita)})})
 	}
 }
 
