@@ -145,7 +145,7 @@ object filaInferior inherits Restringido{
 
 object filaSuperior inherits Restringido{
 	override method setear(){
-		columnas.forEach({num => conjunto.add(new ObjetoInvisible(position = game.at(num,14)))})
+		columnas.forEach({num => if(not nenufar.celdas().contains(num)){conjunto.add(new ObjetoInvisible(position = game.at(num,14)))}})
 		conjunto.forEach({celda => game.addVisual(celda)})
 		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => celda.devolverAbajo(ranita)})})
 	}
@@ -167,7 +167,7 @@ object rio inherits Restringido{
 }
 
 object nenufar inherits Restringido{
-	const celdas = [0,2,4,6,8,10,12,14,16,18]
+	const property celdas = [0,2,4,6,8,10,12,14,16,18]
 	
 	override method setear(){
 		super()
