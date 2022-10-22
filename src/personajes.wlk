@@ -12,7 +12,7 @@ object rana {
 	var property id = true 
 	var property position = game.at(9,1)
 	var property image = "assets/ranita.png"
-	var cantVidas = 3
+	var property cantVidas = 3
 	
 	method setearListeners(){
 		keyboard.up().onPressDo({

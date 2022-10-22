@@ -83,7 +83,7 @@ object interfaz {
 		game.clear()
 		console.println(self.image())
 		self.cambiarPantalla("assets/pantallaCarga.png")
-		
+		rana.cantVidas(3)
 		self.hacerBotones()
 	}
 	
