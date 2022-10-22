@@ -10,6 +10,7 @@
 
 ![ss1](https://user-images.githubusercontent.com/110511621/197354851-372238ed-35d4-4f72-8042-977c2c161749.png)
 ![ss2](https://user-images.githubusercontent.com/110511621/197354853-42a5a490-3043-4928-94fa-469b6826fe2a.png)
+![s4](https://user-images.githubusercontent.com/110511621/197358804-44578b7b-2cf5-4502-bf81-5b77c5ca8397.png)
 ![ss3](https://user-images.githubusercontent.com/110511621/197354854-5704b989-dc13-4b55-a088-d73c49d7079f.png)
 
 ## Reglas de Juego / Instrucciones
