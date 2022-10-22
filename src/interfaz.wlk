@@ -10,7 +10,7 @@ object startBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		[vidas,filaInferior,filaSuperior,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
+		[vidas,filaInferior,filaSuperior,nenufar,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
 		game.addVisualCharacter(rana)
 		rana.setearListeners()
 		keyboard.p().onPressDo({
@@ -163,6 +163,17 @@ object rio inherits Restringido{
 		if(not rana.tieneSoporte()){
 			ranita.perderVida()
 		}
+	}
+}
+
+object nenufar inherits Restringido{
+	const celdas = [0,2,4,6,8,10,12,14,16,18]
+	
+	override method setear(){
+		super()
+		celdas.forEach({celda => conjunto.add(new ObjetoInvisible(position = game.at(celda,13)))})
+		conjunto.forEach({celda => game.addVisual(celda)})
+		conjunto.forEach({celda => game.onCollideDo(celda,{ ranita => ranita.perderVida()})})
 	}
 }
 

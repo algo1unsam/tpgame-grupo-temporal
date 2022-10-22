@@ -30,7 +30,7 @@ object soportes inherits Conjunto{
 	const velocidad1 = 600
 	const velocidad2 = 400
 	const velocidad3 = 300
-	const velocidad4 = 200
+	const velocidad4 = 400
 	
 	var property subc1 = [new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(0,8)),
 						 new Soporte(velocidad = velocidad1, image = "assets/tronco.png", sentido = "l", posicionInicial = game.at(7,8)),
