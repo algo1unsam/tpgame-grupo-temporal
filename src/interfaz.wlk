@@ -212,7 +212,7 @@ object score{
 	var property text = (0).toString() + "/5"
 	// AUMENTA LA DIFICULTAD CADA VEZ QUE SE SUBE DE PUNTUACION LLEGANDO A LA MOSCA, SI LLEGA A 4 CAMBIA A LA PANTALLA DE VICTORIA
 	method subirPuntos(){
-		if(puntos == 1){
+		if(puntos == 4){
 			game.removeVisual(self)
 			self.setear()
 			interfaz.victoria()
