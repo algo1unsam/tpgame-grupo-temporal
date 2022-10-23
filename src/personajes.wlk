@@ -80,7 +80,6 @@ object rana {
 			interfaz.derrota()
 			cantVidas = 3
 		}
-		
 	}
 	
 	method quitarVisualVida(){
