@@ -71,13 +71,13 @@ object rana {
 		vidas.conjunto().remove(ultima)
 		self.position(game.at(9,1))
 		
+		mosca.borrar()
+		mosca.setear()
+		
 		if(cantVidas == 0){
 			interfaz.derrota()
 			cantVidas = 3
-		}
-		
-		mosca.borrar()
-		mosca.setear()
+		}		
 	}
 	
 	method tieneSoporte(){
