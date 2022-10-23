@@ -210,14 +210,26 @@ object score{
 			interfaz.victoria()
 		}
 		else{
-			game.sound("assets/sumarPuntos.wav").play()
-			puntos += 1
-			self.text((puntos).toString() + "/5")
-			game.removeVisual(mosca)
-			mosca.setear()
-			[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() })
-			rana.position(game.at(9,1))	
+			self.gestionarMultimedia()
+			self.gestionarMosca()
+			self.aumentarDificultad()
 		}
+	}
+	
+	method gestionarMultimedia(){
+		game.sound("assets/sumarPuntos.wav").play()
+		puntos += 1
+		self.text((puntos).toString() + "/5")
+	}
+	
+	method gestionarMosca(){
+		game.removeVisual(mosca)
+		mosca.setear()
+	}
+	
+	method aumentarDificultad(){
+		[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() })
+		rana.position(game.at(9,1))	
 	}
 	
 	method setear(){

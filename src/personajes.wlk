@@ -9,39 +9,45 @@ import personajesAuxiliares.*
 // representa a la ranita pausada
 object ranaPausada{
 	var property position
-	var property image = "assets/ranitaTry.png"
+	var property image
 }
 
 // representa a la rana con la que jugamos
 object rana {
 	var property id = true 
 	var property position = game.at(9,1)
-	var property image = "assets/ranitaTry.png"
+	var property image = "assets/sprites/ranitaTry.png"
 	var property cantVidas = 3
 	
 	method setearListeners(){
 		keyboard.up().onPressDo({
 			self.sonidoSaltar()
-			self.image("assets/ranitaSalto.png")
-			game.schedule(300, {self.image("assets/ranitaTry.png")})
+			self.image("assets/sprites/ranitaSalto.png")
+			game.schedule(300, {self.image("assets/sprites/ranitaTry.png")})
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
 		})
 		keyboard.down().onPressDo({
 			self.sonidoSaltar()
+			self.image("assets/sprites/ranitaSaltoA.png")
+			game.schedule(300, {self.image("assets/sprites/ranitaTryA.png")})
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
 		})
 		keyboard.right().onPressDo({
 			self.sonidoSaltar()
+			self.image("assets/sprites/ranitaSaltoD.png")
+			game.schedule(300, {self.image("assets/sprites/ranitaTryD.png")})
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
 		})
 		keyboard.left().onPressDo({
 			self.sonidoSaltar()
+			self.image("assets/sprites/ranitaSaltoI.png")
+			game.schedule(300, {self.image("assets/sprites/ranitaTryI.png")})
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
@@ -66,16 +72,24 @@ object rana {
 	
 	method perderVida(){
 		cantVidas -= 1
-		const ultima = vidas.conjunto().last()
-		game.removeVisual(ultima)
-		vidas.conjunto().remove(ultima)
-		self.position(game.at(9,1))
-		
+		self.quitarVisualVida()
+		self.setear()
+		self.gestionarMosca()
+
 		if(cantVidas == 0){
 			interfaz.derrota()
 			cantVidas = 3
 		}
 		
+	}
+	
+	method quitarVisualVida(){
+		const ultima = vidas.conjunto().last()
+		game.removeVisual(ultima)
+		vidas.conjunto().remove(ultima)
+	}
+	
+	method gestionarMosca(){
 		mosca.borrar()
 		mosca.setear()
 	}
@@ -87,6 +101,7 @@ object rana {
 	method modoPausa(){
 		const prePos = self.position()
 		ranaPausada.position(prePos)
+		ranaPausada.image(self.image())
 		game.removeVisual(self)
 		game.addVisual(ranaPausada)
 	}
