@@ -4,17 +4,18 @@ import personajes.*
 import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
-
+// CLASE VEHICULO , ES UNA SUBCLASE DE OBJETOMOVIL
 class Vehiculo inherits ObjetoMovil{
 	var property id = false
+	// COLISION CON LA RANA
 	method atropellar(ranita){
 		game.sound("assets/sonidoAtropellar.wav").play()
 		ranita.perderVida()
 	}
-	
+	// LIMITE DEL JUEGO
 	override method limite(){return [0,19]}
 }
-
+// CONSTRUCTOR DE LOS AUTOS
 object autos inherits Conjunto{
 	const velocidad1 = 600
 	const velocidad2 = 550
@@ -43,15 +44,15 @@ object autos inherits Conjunto{
 				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
 		  		new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
 				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
-	
+	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
 	}
-	
+	// DETIENE TODOS LOS AUTOS
 	override method detenerse(){
 		self.todos().forEach({objeto => game.removeTickEvent("movimiento")})
 	}
-	
+	// INICIALIZA LOS AUTOS
 	override method setear(){
 		super()
 		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
