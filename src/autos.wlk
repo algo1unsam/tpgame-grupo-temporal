@@ -8,6 +8,7 @@ import personajesAuxiliares.*
 class Vehiculo inherits ObjetoMovil{
 	var property id = false
 	method atropellar(ranita){
+		game.sound("assets/sonidoAtropellar.wav").play()
 		ranita.perderVida()
 	}
 	

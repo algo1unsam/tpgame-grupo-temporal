@@ -13,9 +13,27 @@ object startBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		[vidas,filaInferior,filaSuperior,nenufar,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
+		self.gestionarMusica()
+		self.setearObjetos()
+		self.gestionarRana()
+		self.gestionarPausa()
+	}
+	
+	method cambiarFondo(){
+		interfaz.cambiarPantalla("assets/bgTestV4def.png")
+	}
+	
+	method gestionarMusica(){
+		musica.sonidoStop()
+		musica.sonidoJuego()
+	}
+	
+	method gestionarRana(){
 		game.addVisualCharacter(rana)
 		rana.setearListeners()
+	}
+	
+	method gestionarPausa(){
 		keyboard.p().onPressDo({
 			if(game.getObjectsIn(game.at(6,8)).contains(cartelPausa)){
 				interfaz.quitarPausa()	
@@ -25,9 +43,8 @@ object startBtn{
 		})
 	}
 	
-	
-	method cambiarFondo(){
-		interfaz.cambiarPantalla("assets/bgTestV4def.png")
+	method setearObjetos(){
+		[vidas,filaInferior,filaSuperior,nenufar,rio,mosca,score,soportes,autos,rana].forEach({obj => obj.setear()})
 	}
 	
 }
@@ -39,11 +56,24 @@ object instrBtn{
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		keyboard.v().onPressDo({interfaz.pantallaCarga()})
+		self.gestionarMusica()
+		self.gestionarVuelta()
 	}
 	
 	method cambiarFondo(){
 		interfaz.cambiarPantalla("assets/instrucciones.png")
+	}
+	
+	method gestionarMusica(){
+		musica.sonidoStop()
+		musica.sonidoJuego()
+	}
+	
+	method gestionarVuelta(){
+		keyboard.v().onPressDo({
+			interfaz.pantallaCarga()
+			musica.sonidoStop()
+		})
 	}
 }
 
@@ -52,10 +82,21 @@ object flecha{
 	var property image = "assets/flecha.png"
 	
 	method seleccionar(){
+		game.sound("assets/seleccionar.mp3").play()
+		self.dameSeleccion().first().presionar()
+	}
+	
+	method mover(){
+		if(self.position().y() == 1){
+			self.position(game.at(6, 3))
+		}else{
+			self.position(game.at(6, 1))
+		}
+	}
+	
+	method dameSeleccion(){
 		const selecPos = game.at(self.position().x()+1, self.position().y())
-		const seleccion = game.getObjectsIn(selecPos)
-		
-		seleccion.first().presionar()
+		return game.getObjectsIn(selecPos) 
 	}
 }
 
@@ -65,12 +106,14 @@ object cartelPausa{
 	
 	method pausar(){
 		rana.modoPausa()
+		musica.pausar()
 		soportes.detenerse()
 		autos.detenerse()
 	}
 	
 	method reanudar(){
 		rana.quitarPausa()
+		musica.reanudar()
 		soportes.moverse()
 		autos.moverse()
 	}
@@ -84,18 +127,27 @@ object interfaz {
 	
 	method pantallaCarga(){
 		game.clear()
-		console.println(self.image())
+		game.schedule(200, {=>musica.sonidoMenu()})
 		self.cambiarPantalla("assets/pantallaCarga.png")
 		self.hacerBotones()
 	}
 	
 	method hacerBotones(){
-		console.println("hago buttons")
+
 		botones.forEach({btn => game.addVisual(btn)})
 		
-		keyboard.down().onPressDo({flecha.position(game.at(6,1))})
-		keyboard.up().onPressDo({flecha.position(game.at(6,3))})
-		keyboard.enter().onPressDo({flecha.seleccionar()})
+		keyboard.down().onPressDo({
+			game.sound("assets/moverMenu.mp3").play()
+			flecha.mover()
+		})
+		keyboard.up().onPressDo({
+			game.sound("assets/moverMenu.mp3").play()
+			flecha.mover()
+		})
+		keyboard.enter().onPressDo({
+			game.sound("assets/moverMenu.mp3").play()
+			flecha.seleccionar()
+		})
 	}	
 	
 	method hacerPausa(){
@@ -112,21 +164,35 @@ object interfaz {
 	
 	method victoria(){
 		game.clear()
+		self.gestionarMusica("assets/sonidoGanador.mp3")
 		self.cambiarPantalla("assets/pantallaVictoria.png")
-		keyboard.s().onPressDo({self.pantallaCarga()}) 
+		keyboard.s().onPressDo({
+			self.pantallaCarga()
+			musica.sonidoStop()
+		}) 
 	}
 	
 	method derrota(){
 		game.clear()
+		musica.sonidoStop()
+		game.schedule(1000, {self.gestionarMusica("assets/gameOver.mp3")})
 		self.cambiarPantalla("assets/pantallaDerrota.png")
-		keyboard.s().onPressDo({self.pantallaCarga()})
-		keyboard.enter().onPressDo({self.pantallaCarga()})
+		self.gestionarBotonesDerrota()
 	}
 	
 	method cambiarPantalla(img){
-		console.println("pantalla enviada para cambiar: " + img)
 		self.image(img)
 		game.addVisual(self)
+	}
+	
+	method gestionarMusica(cancion){
+		musica.sonidoStop()
+		musica.reproducir(cancion)
+	}
+	
+	method gestionarBotonesDerrota(){
+		keyboard.s().onPressDo({self.pantallaCarga()})
+		keyboard.enter().onPressDo({self.pantallaCarga()})
 	}
 	
 }
@@ -138,13 +204,17 @@ object score{
 	var property text = (0).toString() + "/5"
 	
 	method subirPuntos(){
-		if(puntos == 4){
+		if(puntos == 1){
+			game.removeVisual(self)
 			self.setear()
 			interfaz.victoria()
 		}
 		else{
+			game.sound("assets/sumarPuntos.wav").play()
 			puntos += 1
 			self.text((puntos).toString() + "/5")
+			game.removeVisual(mosca)
+			mosca.setear()
 			[autos,soportes].forEach({conjunto => conjunto.aumentarVelocidades() })
 			rana.position(game.at(9,1))	
 		}
@@ -155,4 +225,40 @@ object score{
 		puntos = 0
 		text = (0).toString() + "/5"
 	}
+}
+
+object musica{
+	var property sonando
+	
+	method reproducir(cancion){
+		sonando = game.sound(cancion)
+		sonando.play()
+	}
+	
+	method sonidoMenu(){
+		sonando = game.sound("assets/musicaMenu.mp3")
+		sonando.play()
+		sonando.shouldLoop(true)
+		sonando.volume(0.7)
+	}
+	
+	method sonidoStop(){
+		sonando.stop()
+	}
+	
+	method sonidoJuego(){
+		sonando = game.sound("assets/musicaGame.mp3")
+		sonando.play()
+		sonando.shouldLoop(true)
+		sonando.volume(0.6)
+	}
+	
+	method pausar(){
+		sonando.pause()
+	}
+	
+	method reanudar(){
+		sonando.resume()
+	}
+	
 }

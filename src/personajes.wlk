@@ -6,34 +6,42 @@ import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
 
+// representa a la ranita pausada
 object ranaPausada{
 	var property position
-	var property image = "assets/ranita.png"
+	var property image = "assets/ranitaTry.png"
 }
 
+// representa a la rana con la que jugamos
 object rana {
 	var property id = true 
 	var property position = game.at(9,1)
-	var property image = "assets/ranita.png"
+	var property image = "assets/ranitaTry.png"
 	var property cantVidas = 3
 	
 	method setearListeners(){
 		keyboard.up().onPressDo({
+			self.sonidoSaltar()
+			self.image("assets/ranitaSalto.png")
+			game.schedule(300, {self.image("assets/ranitaTry.png")})
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
 		})
 		keyboard.down().onPressDo({
+			self.sonidoSaltar()
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
 		})
 		keyboard.right().onPressDo({
+			self.sonidoSaltar()
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
 		})
 		keyboard.left().onPressDo({
+			self.sonidoSaltar()
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
@@ -46,6 +54,7 @@ object rana {
 	
 	method chequearColision(){
 		if(self.ranaRio() && !self.tieneSoporte()){
+			game.sound("assets/sonidoAhogar.wav").play()
 			self.perderVida()
 		}
 	}
@@ -67,8 +76,8 @@ object rana {
 			cantVidas = 3
 		}
 		
-		mosca.borrar()
-		mosca.setear()
+//		mosca.borrar()
+//		mosca.setear()
 	}
 	
 	method tieneSoporte(){
@@ -90,6 +99,10 @@ object rana {
 	
 	method setear(){
 		self.position(game.at(9,1))
+	}
+	
+	method sonidoSaltar(){
+		game.sound("assets/hop.wav").play()
 	}
 	
 }
