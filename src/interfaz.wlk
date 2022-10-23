@@ -204,7 +204,7 @@ object score{
 	var property text = (0).toString() + "/5"
 	
 	method subirPuntos(){
-		if(puntos == 1){
+		if(puntos == 4){
 			game.removeVisual(self)
 			self.setear()
 			interfaz.victoria()

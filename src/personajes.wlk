@@ -76,8 +76,8 @@ object rana {
 			cantVidas = 3
 		}
 		
-//		mosca.borrar()
-//		mosca.setear()
+		mosca.borrar()
+		mosca.setear()
 	}
 	
 	method tieneSoporte(){
