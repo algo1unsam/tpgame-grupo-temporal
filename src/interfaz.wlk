@@ -5,6 +5,7 @@ import soportes.*
 import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
+import sonidos.*
 // BOTON DE INICIO 
 object startBtn{
 	var property position = game.at(7, 3)
@@ -73,7 +74,7 @@ object instrBtn{
 		keyboard.v().onPressDo({
 			interfaz.pantallaCarga()
 			musica.sonidoStop()
-			game.sound("assets/seleccionar.mp3").play()
+			soundProducer.sound("assets/seleccionar.mp3").play()
 		})
 	}
 }
@@ -83,7 +84,7 @@ object flecha{
 	var property image = "assets/flecha.png"
 	// SELECCIONA EL OBJETO 
 	method seleccionar(){
-		game.sound("assets/seleccionar.mp3").play()
+		soundProducer.sound("assets/seleccionar.mp3").play()
 		self.dameSeleccion().first().presionar()
 	}
 	// METODO PARA MOVERSE ENTRE LOS OBJETOS
@@ -138,15 +139,15 @@ object interfaz {
 		botones.forEach({btn => game.addVisual(btn)})
 		
 		keyboard.down().onPressDo({
-			game.sound("assets/moverMenu.mp3").play()
+			soundProducer.sound("assets/moverMenu.mp3").play()
 			flecha.mover()
 		})
 		keyboard.up().onPressDo({
-			game.sound("assets/moverMenu.mp3").play()
+			soundProducer.sound("assets/moverMenu.mp3").play()
 			flecha.mover()
 		})
 		keyboard.enter().onPressDo({
-			game.sound("assets/moverMenu.mp3").play()
+			soundProducer.sound("assets/moverMenu.mp3").play()
 			flecha.seleccionar()
 		})
 	}	
@@ -170,7 +171,7 @@ object interfaz {
 		keyboard.s().onPressDo({
 			self.pantallaCarga()
 			musica.sonidoStop()
-			game.sound("assets/seleccionar.mp3").play()
+			soundProducer.sound("assets/seleccionar.mp3").play()
 		}) 
 	}
 	// PANTALLA DE DERROTA
@@ -195,11 +196,11 @@ object interfaz {
 	method gestionarBotonesDerrota(){
 		keyboard.s().onPressDo({
 			self.pantallaCarga()
-			game.sound("assets/seleccionar.mp3").play()
+			soundProducer.sound("assets/seleccionar.mp3").play()
 		})
 		keyboard.enter().onPressDo({
 			self.pantallaCarga()
-			game.sound("assets/seleccionar.mp3").play()
+			soundProducer.sound("assets/seleccionar.mp3").play()
 		})
 	}
 	
@@ -225,7 +226,7 @@ object score{
 	}
 	// REPRODUCE SONIDOS AL SUBIR PUNTOS Y CAMBIA EL TEXTO
 	method gestionarMultimedia(){
-		game.sound("assets/sumarPuntos.wav").play()
+		soundProducer.sound("assets/sumarPuntos.wav").play()
 		puntos += 1
 		self.text((puntos).toString() + "/5")
 	}
@@ -245,40 +246,4 @@ object score{
 		puntos = 0
 		text = (0).toString() + "/5"
 	}
-}
-// MUSICA DEL JUEGO
-object musica{
-	var property sonando
-	// REPRODUCE LA MUSICA
-	method reproducir(cancion){
-		sonando = game.sound(cancion)
-		sonando.play()
-	}
-	// MUSICA DEL MENU
-	method sonidoMenu(){
-		sonando = game.sound("assets/musicaMenu.mp3")
-		sonando.play()
-		sonando.shouldLoop(true)
-		sonando.volume(0.7)
-	}
-	// DETIENE LA MUSICA
-	method sonidoStop(){
-		sonando.stop()
-	}
-	// MUSICA DEL JUEGO PRINCIPAL
-	method sonidoJuego(){
-		sonando = game.sound("assets/musicaGame.mp3")
-		sonando.play()
-		sonando.shouldLoop(true)
-		sonando.volume(0.3)
-	}
-	// PAUSA LA MUSICA
-	method pausar(){
-		sonando.pause()
-	}
-	// REANUDA LA MUSICA
-	method reanudar(){
-		sonando.resume()
-	}
-	
 }

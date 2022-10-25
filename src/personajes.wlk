@@ -5,6 +5,7 @@ import soportes.*
 import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
+import sonidos.*
 
 // RANA PAUSADA
 object ranaPausada{
@@ -59,7 +60,7 @@ object rana {
 	// SI LA RANA ESTA EN EL RIO Y NO TIENE SOPORTE PIERDE UNA VIDA
 	method chequearColision(){
 		if(self.ranaRio() && !self.tieneSoporte()){
-			game.sound("assets/sonidoAhogar.wav").play()
+			soundProducer.sound("assets/sonidoAhogar.wav").play()
 			self.perderVida()
 		}
 	}
@@ -115,7 +116,7 @@ object rana {
 	}
 	// SONIDO DEL SALTO DE LA RANA
 	method sonidoSaltar(){
-		game.sound("assets/hop.wav").play()
+		soundProducer.sound("assets/hop.wav").play()
 	}
 	
 }

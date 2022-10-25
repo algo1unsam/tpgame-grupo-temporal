@@ -4,12 +4,13 @@ import personajes.*
 import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
+import sonidos.*
 // CLASE VEHICULO , ES UNA SUBCLASE DE OBJETOMOVIL
 class Vehiculo inherits ObjetoMovil{
 	var property id = false
 	// COLISION CON LA RANA
 	method atropellar(ranita){
-		game.sound("assets/sonidoAtropellar.wav").play()
+		soundProducer.sound("assets/sonidoAtropellar.wav").play()
 		ranita.perderVida()
 	}
 	// LIMITE DEL JUEGO

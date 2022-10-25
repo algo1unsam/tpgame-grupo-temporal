@@ -1,3 +1,41 @@
-test "testX" {
-	assert.that(true)
+import wollok.game.*
+import personajes.*
+import autos.*
+import soportes.*
+import filasExteriores.*
+import rio.*
+import personajesAuxiliares.*
+import interfaz.*
+import sonidos.*
+
+describe "test del juego"{
+	method initialize(){
+		game.clear()
+		startBtn.setearObjetos()
+		startBtn.gestionarRana()
+		soundProducer.provider(soundProviderMock)
+		musica.reproducir(soundProviderMock)
+	}
+
+	test " la rana pierde una vida"{
+		rana.perderVida()
+		assert.equals(2,rana.cantVidas())
+	}
+	
+	test "sube el score"{
+		score.subirPuntos()
+		assert.equals(1,score.puntos())
+	}
+	
+	test " al tener 0 vidas cambia a la pantalla de derrota"{
+		3.times({i=>rana.perderVida()})
+		assert.equals("assets/pantallaDerrota.png",interfaz.image())
+	}
+	
+	test "al llegar a 5 puntos cambia a victoria"{
+		5.times({i=>score.subirPuntos()})
+		assert.equals("assets/pantallaVictoria.png",interfaz.image())
+	}
+	
 }
+
