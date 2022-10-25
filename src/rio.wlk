@@ -14,13 +14,8 @@ object rio inherits Restringido{
 		super()
 		filas.forEach({fila => columnas.forEach({columna => conjunto.add(game.at(columna,fila))})})
 	}
-	// LA RANA PIERDE UNA VIDA SI NO TIENE SOPORTE
-	method ahogar(ranita){
-		if(not rana.tieneSoporte()){
-			ranita.perderVida()
-		}
-	}
 }
+
 // CONSTRUCOR DE LOS NENUFARES
 object nenufar inherits Restringido{
 	const property celdas = [0,2,4,6,8,10,12,14,16,18]
