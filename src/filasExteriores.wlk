@@ -5,6 +5,7 @@ import autos.*
 import soportes.*
 import rio.*
 import personajesAuxiliares.*
+import movimiento.*
 
 object filaInferior inherits Restringido{
 	override method setear(){

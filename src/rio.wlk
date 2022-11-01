@@ -5,6 +5,7 @@ import autos.*
 import soportes.*
 import filasExteriores.*
 import personajesAuxiliares.*
+import movimiento.*
 // CONSTRUCTOR DEL RIO 
 object rio inherits Restringido{
 	const filas = [8,9,10,11,12]

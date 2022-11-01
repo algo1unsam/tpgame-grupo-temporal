@@ -4,6 +4,7 @@ import personajes.*
 import autos.*
 import soportes.*
 import rio.*
+import movimiento.*
 // CLASE RESTRINGIDO
 class Restringido{
 	const columnas = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
@@ -16,26 +17,13 @@ class ObjetoMovil{
 	var property posicionInicial = null
 	var property position = posicionInicial
 	var property velocidad = 0
-	var property sentido = ""
+	var property movimiento
 	var property x = self.limite().get(0)
 	var property y = self.limite().get(1)
+	
 	// METODO PARA EL MOVIMIENTO 
 	method moverse(){
-		if(sentido == "r"){
-			if (self.position().x() == self.y()){
-				self.position(game.at(self.x(), self.posicionInicial().y()))
-			}else{
-				self.position(self.position().right(1))
-			}
-		}
-		else if (sentido == "l"){
-			if (self.position().x() == self.x()){
-				self.position(game.at(self.y(), self.posicionInicial().y()))
-			}else{
-				self.position(self.position().left(1))
-			}
-		}
-		
+		movimiento.moverse(self)
 	}
 	// LIMITE DE MOVIMIENTO DE LOS OBJETOS 
 	method limite(){return null}

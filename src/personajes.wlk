@@ -6,6 +6,7 @@ import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
 import sonidos.*
+import movimiento.*
 
 // RANA PAUSADA
 object ranaPausada{

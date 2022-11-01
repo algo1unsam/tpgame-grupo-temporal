@@ -6,6 +6,7 @@ import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
 import sonidos.*
+import movimiento.*
 
 object botonInicio{
 	var property position = game.at(7, 3)

@@ -5,22 +5,36 @@ import filasExteriores.*
 import autos.*
 import rio.*
 import personajesAuxiliares.*
+import movimiento.*
 // CLASE DE LOS SOPORTES, ES UNA SUBCLASE DE OBJETO MOVIL
 class Soporte inherits ObjetoMovil{
 	var property id = true 
 	// METODO DEL MOVIMIENTO, SI LA RANA ESTA EN EL SOPORTE PUEDE MOVERSE POR ESTE
 	override method moverse(){
-		if(self.posicionesExtra().contains(rana.position())){
-			if(rana.position().x() == -1 or rana.position().x() == 20){
+		if(self.troncoContieneARana()){
+			if(self.ranaSeFueDelMapa()){
 				rana.perderVida()
 			}else{
-				rana.position(self.siguientePosicion())
+				self.troncoMueveRana()
 			}
 		}	
 		super()
 	}
+	
+	method ranaSeFueDelMapa(){
+		return rana.position().x() == -1 or rana.position().x() == 20
+	}
+	
+	method troncoContieneARana(){
+		return self.posicionesExtra().contains(rana.position())
+	}
+	
+	method troncoMueveRana(){
+		rana.position(self.siguientePosicion())
+	}
+	
 	method siguientePosicion(){
-		return if(sentido == "l") rana.position().left(1) else rana.position().right(1)
+		return movimiento.troncoMueveRanaA(self)
 	}
 	
 	method posicionesExtra(){
@@ -33,15 +47,15 @@ class Soporte inherits ObjetoMovil{
 object soportes inherits Conjunto{
 	const velocidad = [600,400,300,650]
 	
-	var property subc1 = self.listaSoportes(3, velocidad.get(0), "assets/tronco.png", 7, 8, "r")
+	var property subc1 = self.listaSoportes(3, velocidad.get(0), "assets/tronco.png", 7, 8, moverseDerecha)
 
-	var property subc2 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 9, "l")
+	var property subc2 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 9, moverseIzquierda)
 
-	var property subc3 = self.listaSoportes(3, velocidad.get(2), "assets/tronco.png", 7, 10, "r")
+	var property subc3 = self.listaSoportes(3, velocidad.get(2), "assets/tronco.png", 7, 10, moverseDerecha)
 						 
-	var property subc4 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 11, "l")
+	var property subc4 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 11, moverseIzquierda)
 						 
-	var property subc5 = self.listaSoportes(3, velocidad.get(3), "assets/tronco.png", 7, 12, "r")
+	var property subc5 = self.listaSoportes(3, velocidad.get(3), "assets/tronco.png", 7, 12, moverseDerecha)
 	
 	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){
@@ -49,12 +63,12 @@ object soportes inherits Conjunto{
 	}
 	
 	// CREA UNA LISTA DE CIERTA CANTIDAD DE SOPORTES, VARIANDO LA POSICION DE CADA UNO DE ACUERDO A LA DISTANCIA (RELATIVA A LAS FILAS) ENTRE ELLOS
-	method listaSoportes(cantidad, _velocidad, imagen, distanciaEntreSoportes, columna, _sentido){
+	method listaSoportes(cantidad, _velocidad, imagen, distanciaEntreSoportes, columna, sentido){
 		const rango = new Range(start = 1, end = cantidad)
 		const lista = []
 		var fila = 0
 		
-		rango.forEach({e => lista.add(new Soporte(velocidad = _velocidad, image = imagen, sentido = _sentido, posicionInicial = game.at(fila,columna))) fila += distanciaEntreSoportes})
+		rango.forEach({e => lista.add(new Soporte(velocidad = _velocidad, image = imagen, movimiento = sentido, posicionInicial = game.at(fila,columna))) fila += distanciaEntreSoportes})
 		return lista
 	}
 }

@@ -7,9 +7,10 @@ import rio.*
 import personajesAuxiliares.*
 import interfaz.*
 import sonidos.*
+import movimiento.*
 
 describe "test del juego"{
-	const auto = new Vehiculo(velocidad = 600, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(0,2))
+	const auto = new Vehiculo(velocidad = 600, image = "assets/auto3.png", movimiento = moverseIzquierda, posicionInicial = game.at(0,2))
 	
 	method initialize(){
 		game.clear()
