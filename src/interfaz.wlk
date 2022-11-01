@@ -6,15 +6,15 @@ import filasExteriores.*
 import rio.*
 import personajesAuxiliares.*
 import sonidos.*
-// BOTON DE INICIO 
-object startBtn{
+
+object botonInicio{
 	var property position = game.at(7, 3)
 	var property image = "assets/playBtn.png"
 	//INICIA EL JUEGO 
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		self.gestionarMusica()
+		self.cambiarMusica()
 		self.setearObjetos()
 		self.gestionarRana()
 		self.gestionarPausa()
@@ -24,7 +24,7 @@ object startBtn{
 		interfaz.cambiarPantalla("assets/bgTestV4def.png")
 	}
 	// INICIO AL MUSICA DEL JUEGO
-	method gestionarMusica(){
+	method cambiarMusica(){
 		musica.sonidoStop()
 		musica.sonidoJuego()
 	}
@@ -49,28 +49,28 @@ object startBtn{
 	}
 	
 }
-// BOTON DE INSTRUCCIONES 
-object instrBtn{
+
+object botonInstrucciones{
 	var property position = game.at(7, 1)
 	var property image = "assets/instrBtn.png"
 	// INICIALIZA LA PANTALLA DE INSTRUCCIONES
 	method presionar(){
 		game.clear()
 		self.cambiarFondo()
-		self.gestionarMusica()
-		self.gestionarVuelta()
+		self.cambiarMusica()
+		self.volverInicio()
 	}
 	// CAMBIA EL FONDO 
 	method cambiarFondo(){
 		interfaz.cambiarPantalla("assets/instrucciones.png")
 	}
 	// CAMBIA A LA MUSICA DEL JUEGO
-	method gestionarMusica(){
+	method cambiarMusica(){
 		musica.sonidoStop()
 		musica.sonidoJuego()
 	}
 	// AL PRESIONAR V VUELVE A LA PANTALLA DE INCIO
-	method gestionarVuelta(){
+	method volverInicio(){
 		keyboard.v().onPressDo({
 			interfaz.pantallaCarga()
 			musica.sonidoStop()
@@ -125,7 +125,7 @@ object cartelPausa{
 object interfaz {
 	var property image = ""
 	var property position = game.origin()
-	var property botones = [startBtn, instrBtn, flecha]
+	var property botones = [botonInicio, botonInstrucciones, flecha]
 	// PANTALLA DE INICIO 
 	method pantallaCarga(){
 		game.clear()
@@ -135,19 +135,19 @@ object interfaz {
 	}
 	// INICIA LOS BOTONES Y MUEVE LA FLECHA
 	method hacerBotones(){
-
+		const tocarMusiquita = {soundProducer.sound("assets/moverMenu.mp3").play()}
 		botones.forEach({btn => game.addVisual(btn)})
 		
 		keyboard.down().onPressDo({
-			soundProducer.sound("assets/moverMenu.mp3").play()
+			tocarMusiquita.apply()
 			flecha.mover()
 		})
 		keyboard.up().onPressDo({
-			soundProducer.sound("assets/moverMenu.mp3").play()
+			tocarMusiquita.apply()
 			flecha.mover()
 		})
 		keyboard.enter().onPressDo({
-			soundProducer.sound("assets/moverMenu.mp3").play()
+			tocarMusiquita.apply()
 			flecha.seleccionar()
 		})
 	}	
@@ -166,7 +166,7 @@ object interfaz {
 	// PANTALLA DE VICTORIA 
 	method victoria(){
 		game.clear()
-		self.gestionarMusica("assets/sonidoGanador.mp3")
+		self.cambiarMusica("assets/sonidoGanador.mp3")
 		self.cambiarPantalla("assets/pantallaVictoria.png")
 		keyboard.s().onPressDo({
 			self.pantallaCarga()
@@ -178,9 +178,9 @@ object interfaz {
 	method derrota(){
 		game.clear()
 		musica.sonidoStop()
-		game.schedule(1000, {self.gestionarMusica("assets/gameOver.mp3")})
+		game.schedule(1000, {self.cambiarMusica("assets/gameOver.mp3")})
 		self.cambiarPantalla("assets/pantallaDerrota.png")
-		self.gestionarBotonesDerrota()
+		self.mostrarBotonesDerrota()
 	}
 	// AUXILIAR PARA CAMBIAR LAS PANTALLAS
 	method cambiarPantalla(img){
@@ -188,12 +188,12 @@ object interfaz {
 		game.addVisual(self)
 	}
 	// AUXILIAR PARA LA MUSICA 
-	method gestionarMusica(cancion){
+	method cambiarMusica(cancion){
 		musica.sonidoStop()
 		musica.reproducir(cancion)
 	}
 	// BOTONES DE LA PANTALLA DE DERROTA
-	method gestionarBotonesDerrota(){
+	method mostrarBotonesDerrota(){
 		keyboard.s().onPressDo({
 			self.pantallaCarga()
 			soundProducer.sound("assets/seleccionar.mp3").play()
@@ -219,19 +219,19 @@ object score{
 			interfaz.victoria()
 		}
 		else{
-			self.gestionarMultimedia()
-			self.gestionarMosca()
+			puntos += 1
+			self.sonidoSubirPuntos()
+			self.reiniciarPosicionMosca()
 			self.aumentarDificultad()
 		}
 	}
-	// REPRODUCE SONIDOS AL SUBIR PUNTOS Y CAMBIA EL TEXTO
-	method gestionarMultimedia(){
+	// REPRODUCE SONIDOS AL SUBIR PUNTOS
+	method sonidoSubirPuntos(){
 		soundProducer.sound("assets/sumarPuntos.wav").play()
-		puntos += 1
 		self.text((puntos).toString() + "/5")
 	}
 	// REINICIA LA POSICION DE LA MOSCA
-	method gestionarMosca(){
+	method reiniciarPosicionMosca(){
 		game.removeVisual(mosca)
 		mosca.setear()
 	}

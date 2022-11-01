@@ -74,7 +74,7 @@ object rana {
 		cantVidas -= 1
 		self.quitarVisualVida()
 		self.setear()
-		self.gestionarMosca()
+		self.reiniciarPosicionMosca()
 
 		if(cantVidas == 0){
 			interfaz.derrota()
@@ -88,7 +88,7 @@ object rana {
 		vidas.conjunto().remove(ultima)
 	}
 	// AUXILIAR PARA LA MOSCA
-	method gestionarMosca(){
+	method reiniciarPosicionMosca(){
 		mosca.borrar()
 		mosca.setear()
 	}

@@ -13,8 +13,8 @@ describe "test del juego"{
 	
 	method initialize(){
 		game.clear()
-		startBtn.setearObjetos()
-		startBtn.gestionarRana()
+		botonInicio.setearObjetos()
+		botonInicio.gestionarRana()
 		soundProducer.provider(soundProviderMock)
 		musica.reproducir(soundProviderMock)
 	}
