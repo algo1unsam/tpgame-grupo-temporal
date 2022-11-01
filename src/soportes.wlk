@@ -47,15 +47,15 @@ class Soporte inherits ObjetoMovil{
 object soportes inherits Conjunto{
 	const velocidad = [600,400,300,650]
 	
-	var property subc1 = self.listaSoportes(3, velocidad.get(0), "assets/tronco.png", 7, 8, moverseDerecha)
+	var property subc1 = self.listaSoportes(3, velocidad.get(0), "assets/tronco.png", 7, 8, derecha)
 
-	var property subc2 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 9, moverseIzquierda)
+	var property subc2 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 9, izquierda)
 
-	var property subc3 = self.listaSoportes(3, velocidad.get(2), "assets/tronco.png", 7, 10, moverseDerecha)
+	var property subc3 = self.listaSoportes(3, velocidad.get(2), "assets/tronco.png", 7, 10, derecha)
 						 
-	var property subc4 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 11, moverseIzquierda)
+	var property subc4 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 11, izquierda)
 						 
-	var property subc5 = self.listaSoportes(3, velocidad.get(3), "assets/tronco.png", 7, 12, moverseDerecha)
+	var property subc5 = self.listaSoportes(3, velocidad.get(3), "assets/tronco.png", 7, 12, derecha)
 	
 	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){

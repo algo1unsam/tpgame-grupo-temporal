@@ -21,15 +21,15 @@ class Vehiculo inherits ObjetoMovil{
 object autos inherits Conjunto{
 	const velocidad = [600,550,350,300]
 	
-	var property subc1 = self.listaAutos(4, velocidad.get(0), "assets/auto3.png", 5, 2, moverseIzquierda)
+	var property subc1 = self.listaAutos(4, velocidad.get(0), "assets/auto3.png", 5, 2, izquierda)
 	
-	var property subc2 = self.listaAutos(3, velocidad.get(1), "assets/auto2.png", 7, 3, moverseDerecha)
+	var property subc2 = self.listaAutos(3, velocidad.get(1), "assets/auto2.png", 7, 3, derecha)
 
-	var property subc3 = self.listaAutos(2, velocidad.get(2), "assets/auto4.png", 10, 4, moverseIzquierda)
+	var property subc3 = self.listaAutos(2, velocidad.get(2), "assets/auto4.png", 10, 4, izquierda)
 
-	var property subc4 = self.listaAutos(5, velocidad.get(0), "assets/auto1.png", 5, 5, moverseDerecha)
+	var property subc4 = self.listaAutos(5, velocidad.get(0), "assets/auto1.png", 5, 5, derecha)
 	
-	var property subc5 = self.listaAutos(4, velocidad.get(3), "assets/auto5.png", 5, 6, moverseIzquierda)
+	var property subc5 = self.listaAutos(4, velocidad.get(3), "assets/auto5.png", 5, 6, izquierda)
 	
 	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){

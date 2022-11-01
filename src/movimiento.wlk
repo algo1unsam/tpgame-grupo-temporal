@@ -8,7 +8,7 @@ import personajesAuxiliares.*
 import sonidos.*
 
 
-object moverseDerecha{
+object derecha{
 	method moverse(personaje){
 		if (self.estaEnLimite(personaje)){
 			self.volverAPosicionInicial(personaje)
@@ -30,7 +30,7 @@ object moverseDerecha{
 	}
 }
 
-object moverseIzquierda{
+object izquierda{
 	method moverse(personaje){
 		if (self.estaEnLimite(personaje)){
 			self.volverAPosicionInicial(personaje)
