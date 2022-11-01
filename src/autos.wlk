@@ -18,33 +18,18 @@ class Vehiculo inherits ObjetoMovil{
 }
 // CONSTRUCTOR DE LOS AUTOS
 object autos inherits Conjunto{
-	const velocidad1 = 600
-	const velocidad2 = 550
-	const velocidad3 = 350
-	const velocidad4 = 300
-
-	var property subc1 = [new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(0,2)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(5,2)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(10,2)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto3.png", sentido = "l", posicionInicial = game.at(15,2))]
+	const velocidad = [600,550,350,300]
 	
-	var property subc2 = [new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(-1,3)),
-				new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(6,3)),
-				new Vehiculo(velocidad = velocidad2, image = "assets/auto2.png", sentido = "r", posicionInicial = game.at(13,3))]
-
-	var property subc3 = [new Vehiculo(velocidad = velocidad3, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(9,4)),
-				new Vehiculo(velocidad = velocidad3, image = "assets/auto4.png", sentido = "l",  posicionInicial = game.at(19,4))]
-
-	var property subc4 =	[new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(0,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(4,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(8,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(12,5)),
-				new Vehiculo(velocidad = velocidad1, image = "assets/auto1.png", sentido = "r", posicionInicial = game.at(16,5))]
+	var property subc1 = self.listaAutos(4, velocidad.get(0), "assets/auto3.png", 5, 2, "l")
 	
-	var property subc5 = [new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(5,6)),
-				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(10,6)),
-		  		new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(15,6)),
-				new Vehiculo(velocidad = velocidad4, image = "assets/auto5.png", sentido = "l", posicionInicial = game.at(20,6))]
+	var property subc2 = self.listaAutos(3, velocidad.get(1), "assets/auto2.png", 7, 3, "r")
+
+	var property subc3 = self.listaAutos(2, velocidad.get(2), "assets/auto4.png", 10, 4, "l")
+
+	var property subc4 = self.listaAutos(5, velocidad.get(0), "assets/auto1.png", 5, 5, "r")
+	
+	var property subc5 = self.listaAutos(4, velocidad.get(3), "assets/auto5.png", 5, 6, "l")
+	
 	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){
 		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
@@ -57,5 +42,15 @@ object autos inherits Conjunto{
 	override method setear(){
 		super()
 		self.todos().forEach({objeto => game.onCollideDo(objeto,{ranita => objeto.atropellar(ranita)})})
+	}
+	
+	// CREA UNA LISTA DE CIERTA CANTIDAD DE AUTOS, VARIANDO LA POSICION DE CADA UNO DE ACUERDO A LA DISTANCIA (RELATIVA A LAS FILAS) ENTRE ELLOS
+	method listaAutos(cantidad, _velocidad, imagen, distanciaEntreAutos, columna, _sentido){
+		const rango = new Range(start = 1, end = cantidad)
+		const lista = []
+		var fila = 0
+		
+		rango.forEach({e => lista.add(new Vehiculo(velocidad = _velocidad, image = imagen, sentido = _sentido, posicionInicial = game.at(fila,columna))) fila += distanciaEntreAutos})
+		return lista
 	}
 }
