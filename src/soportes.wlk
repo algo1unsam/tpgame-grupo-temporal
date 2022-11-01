@@ -54,7 +54,7 @@ object soportes inherits Conjunto{
 		const lista = []
 		var fila = 0
 		
-		rango.forEach({e => lista.add(new Soporte(velocidad = _velocidad, image = imagen, sentido = _sentido, posicionInicial = game.at(fila,columna)) fila += distanciaEntreSoportes})
+		rango.forEach({e => lista.add(new Soporte(velocidad = _velocidad, image = imagen, sentido = _sentido, posicionInicial = game.at(fila,columna))) fila += distanciaEntreSoportes})
 		return lista
 	}
 }
