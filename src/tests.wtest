@@ -25,14 +25,14 @@ describe "test del juego"{
 	}
 	
 	test "la rana pierde vida al tocar el agua y no haber soporte"{
-		rana.position(game.at(8,12))
+		rana.position(game.at(19,8))
 		rana.chequearColision()
 		assert.equals(2, rana.cantVidas())
 	}
 	
 	test "la rana no pierde vida si esta sobre un tronco en el agua"{
 		// (11, 9) es la posicion inicial de uno de los troncos 
-		rana.position(game.at(11,9))
+		rana.position(game.at(0,8))
 		rana.chequearColision()
 		
 		assert.equals(3, rana.cantVidas())
