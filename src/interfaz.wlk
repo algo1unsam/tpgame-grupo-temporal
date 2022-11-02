@@ -90,6 +90,7 @@ object flecha{
 	}
 	// METODO PARA MOVERSE ENTRE LOS OBJETOS
 	method mover(){
+		soundProducer.sound("assets/moverMenu.mp3").play()
 		if(self.position().y() == 1){
 			self.position(game.at(6, 3))
 		}else{
@@ -136,19 +137,15 @@ object interfaz {
 	}
 	// INICIA LOS BOTONES Y MUEVE LA FLECHA
 	method hacerBotones(){
-		const tocarMusiquita = {soundProducer.sound("assets/moverMenu.mp3").play()}
 		botones.forEach({btn => game.addVisual(btn)})
 		
 		keyboard.down().onPressDo({
-			tocarMusiquita.apply()
 			flecha.mover()
 		})
 		keyboard.up().onPressDo({
-			tocarMusiquita.apply()
 			flecha.mover()
 		})
 		keyboard.enter().onPressDo({
-			tocarMusiquita.apply()
 			flecha.seleccionar()
 		})
 	}	
