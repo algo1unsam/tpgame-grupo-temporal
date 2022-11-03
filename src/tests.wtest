@@ -15,6 +15,7 @@ describe "test del juego"{
 	method initialize(){
 		game.clear()
 		botonInicio.setearObjetos()
+		botonInicio.crearRana()
 		soundProducer.provider(soundProviderMock)
 		musica.reproducir(soundProviderMock)
 	}

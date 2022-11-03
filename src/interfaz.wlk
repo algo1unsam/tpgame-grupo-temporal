@@ -17,6 +17,7 @@ object botonInicio{
 		self.cambiarFondo()
 		self.cambiarMusica()
 		self.setearObjetos()
+		self.crearRana()
 		self.crearPausa()
 	}
 	// CAMBIO AL FONDO DEL JUEGO 
@@ -27,6 +28,11 @@ object botonInicio{
 	method cambiarMusica(){
 		musica.sonidoStop()
 		musica.sonidoJuego()
+	}
+	
+	method crearRana(){
+		game.addVisualCharacter(rana)
+		rana.setearListeners()
 	}
 	// BOTON DE PAUSA
 	method crearPausa(){
@@ -141,7 +147,6 @@ object interfaz {
 	method hacerPausa(){
 		game.addVisual(cartelPausa)
 		keyboard.m().onPressDo({self.pantallaCarga()})
-		
 		cartelPausa.pausar()
 	}
 	//SACAR LA PAUSA
