@@ -47,15 +47,15 @@ class Soporte inherits ObjetoMovil{
 object soportes inherits Conjunto{
 	const velocidad = [600,400,300,650]
 	
-	var property subc1 = self.listaSoportes(3, velocidad.get(0), "assets/tronco.png", 7, 8, derecha)
+	var property subc1 = self.listaSoportes(velocidad.get(0), 8, derecha)
 
-	var property subc2 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 9, izquierda)
+	var property subc2 = self.listaSoportes(velocidad.get(1), 9, izquierda)
 
-	var property subc3 = self.listaSoportes(3, velocidad.get(2), "assets/tronco.png", 7, 10, derecha)
+	var property subc3 = self.listaSoportes(velocidad.get(2), 10, derecha)
 						 
-	var property subc4 = self.listaSoportes(3, velocidad.get(1), "assets/tronco.png", 7, 11, izquierda)
+	var property subc4 = self.listaSoportes(velocidad.get(1), 11, izquierda)
 						 
-	var property subc5 = self.listaSoportes(3, velocidad.get(3), "assets/tronco.png", 7, 12, derecha)
+	var property subc5 = self.listaSoportes(velocidad.get(3), 12, derecha)
 	
 	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){
@@ -63,12 +63,13 @@ object soportes inherits Conjunto{
 	}
 	
 	// CREA UNA LISTA DE CIERTA CANTIDAD DE SOPORTES, VARIANDO LA POSICION DE CADA UNO DE ACUERDO A LA DISTANCIA (RELATIVA A LAS FILAS) ENTRE ELLOS
-	method listaSoportes(cantidad, _velocidad, imagen, distanciaEntreSoportes, columna, sentido){
-		const rango = new Range(start = 1, end = cantidad)
+	method listaSoportes(_velocidad, columna, sentido){
+		const rango = new Range(start = 1, end = 3)
 		const lista = []
+		const distanciaEntreSoportes = 7
 		var fila = 0
 		
-		rango.forEach({e => lista.add(new Soporte(velocidad = _velocidad, image = imagen, movimiento = sentido, posicionInicial = game.at(fila,columna))) fila += distanciaEntreSoportes})
+		rango.forEach({e => lista.add(new Soporte(velocidad = _velocidad, image = "assets/tronco.png", movimiento = sentido, posicionInicial = game.at(fila,columna))) fila += distanciaEntreSoportes})
 		return lista
 	}
 }

@@ -86,7 +86,7 @@ object flecha{
 	// SELECCIONA EL OBJETO 
 	method seleccionar(){
 		soundProducer.sound("assets/seleccionar.mp3").play()
-		self.dameSeleccion().first().presionar()
+		self.dameSeleccion().presionar()
 	}
 	// METODO PARA MOVERSE ENTRE LOS OBJETOS
 	method mover(){
@@ -100,7 +100,7 @@ object flecha{
 	// DEVUELVE AL POSICION DEL OBJETO SELECCIONADO
 	method dameSeleccion(){
 		const selecPos = game.at(self.position().x()+1, self.position().y())
-		return game.getObjectsIn(selecPos) 
+		return game.getObjectsIn(selecPos).first() 
 	}
 }
 // CARTEL DE PAUSA 
@@ -139,15 +139,9 @@ object interfaz {
 	method hacerBotones(){
 		botones.forEach({btn => game.addVisual(btn)})
 		
-		keyboard.down().onPressDo({
-			flecha.mover()
-		})
-		keyboard.up().onPressDo({
-			flecha.mover()
-		})
-		keyboard.enter().onPressDo({
-			flecha.seleccionar()
-		})
+		[keyboard.down(), keyboard.up()].forEach({tecla => tecla.onPressDo({flecha.mover()})})
+
+		keyboard.enter().onPressDo({flecha.seleccionar()})
 	}	
 	//LLAMAR A LA PAUSA
 	method hacerPausa(){
@@ -192,13 +186,8 @@ object interfaz {
 	}
 	// BOTONES DE LA PANTALLA DE DERROTA
 	method mostrarBotonesDerrota(){
-		keyboard.s().onPressDo({
-			self.pantallaCarga()
-			soundProducer.sound("assets/seleccionar.mp3").play()
-		})
-		keyboard.enter().onPressDo({
-			self.pantallaCarga()
-			soundProducer.sound("assets/seleccionar.mp3").play()
+		[keyboard.s(), keyboard.enter()].forEach({
+			tecla => tecla.onPressDo({self.pantallaCarga() soundProducer.sound("assets/seleccionar.mp3").play()})
 		})
 	}
 	

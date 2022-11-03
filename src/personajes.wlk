@@ -21,37 +21,26 @@ object rana {
 	var property cantVidas = 3
 	// MOVIMIENTO, ANIMACION DEL RANA Y CHEQUEO DE COLISIONES
 	method setearListeners(){
-		keyboard.up().onPressDo({
+		const animacion = {
+			img1, img2 => 
 			self.sonidoSaltar()
-			self.image("assets/sprites/ranitaSalto.png")
-			game.schedule(300, {self.image("assets/sprites/ranitaTry.png")})
+			self.image(img1)
+			game.schedule(300, {self.image(img2)})
 			if(self.existeRanita()){				
 				self.chequearColision()
 			}
+		}
+		keyboard.up().onPressDo({
+			animacion.apply("assets/sprites/ranitaSalto.png", "assets/sprites/ranitaTry.png")
 		})
 		keyboard.down().onPressDo({
-			self.sonidoSaltar()
-			self.image("assets/sprites/ranitaSaltoA.png")
-			game.schedule(300, {self.image("assets/sprites/ranitaTryA.png")})
-			if(self.existeRanita()){				
-				self.chequearColision()
-			}
+			animacion.apply("assets/sprites/ranitaSaltoA.png", "assets/sprites/ranitaTryA.png")
 		})
 		keyboard.right().onPressDo({
-			self.sonidoSaltar()
-			self.image("assets/sprites/ranitaSaltoD.png")
-			game.schedule(300, {self.image("assets/sprites/ranitaTryD.png")})
-			if(self.existeRanita()){				
-				self.chequearColision()
-			}
+			animacion.apply("assets/sprites/ranitaSaltoD.png", "assets/sprites/ranitaTryD.png")
 		})
 		keyboard.left().onPressDo({
-			self.sonidoSaltar()
-			self.image("assets/sprites/ranitaSaltoI.png")
-			game.schedule(300, {self.image("assets/sprites/ranitaTryI.png")})
-			if(self.existeRanita()){				
-				self.chequearColision()
-			}
+			animacion.apply("assets/sprites/ranitaSaltoI.png", "assets/sprites/ranitaTryI.png")
 		})
 	}
 	// DEVUELVE SI LA RANA EXISTE EN EL JUEGO
