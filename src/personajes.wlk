@@ -103,6 +103,8 @@ object rana {
 	// UBICA LA RANA EN LA POSICION INICIAL DEL JUEGO
 	method setear(){
 		self.position(game.at(9,1))
+		game.addVisualCharacter(self)
+		self.setearListeners()
 	}
 	// SONIDO DEL SALTO DE LA RANA
 	method sonidoSaltar(){

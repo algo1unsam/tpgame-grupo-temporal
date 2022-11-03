@@ -17,7 +17,6 @@ object botonInicio{
 		self.cambiarFondo()
 		self.cambiarMusica()
 		self.setearObjetos()
-		self.gestionarRana()
 		self.gestionarPausa()
 	}
 	// CAMBIO AL FONDO DEL JUEGO 
@@ -28,11 +27,6 @@ object botonInicio{
 	method cambiarMusica(){
 		musica.sonidoStop()
 		musica.sonidoJuego()
-	}
-	// INICIALIZACION DE LA RANA 
-	method gestionarRana(){
-		game.addVisualCharacter(rana)
-		rana.setearListeners()
 	}
 	// BOTON DE PAUSA
 	method gestionarPausa(){
