@@ -17,7 +17,7 @@ object botonInicio{
 		self.cambiarFondo()
 		self.cambiarMusica()
 		self.setearObjetos()
-		self.gestionarPausa()
+		self.crearPausa()
 	}
 	// CAMBIO AL FONDO DEL JUEGO 
 	method cambiarFondo(){
@@ -29,7 +29,7 @@ object botonInicio{
 		musica.sonidoJuego()
 	}
 	// BOTON DE PAUSA
-	method gestionarPausa(){
+	method crearPausa(){
 		keyboard.p().onPressDo({
 			if(game.getObjectsIn(game.at(6,8)).contains(cartelPausa)){
 				interfaz.quitarPausa()	
