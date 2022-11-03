@@ -18,11 +18,11 @@ object derecha{
 	}
 	
 	method volverAPosicionInicial(personaje){
-		personaje.position(game.at(personaje.x(), personaje.posicionInicial().y()))
+		personaje.position(game.at(personaje.limiteIzquierda(), personaje.posicionInicial().y()))
 	}
 	
 	method estaEnLimite(personaje){
-		return personaje.position().x() == personaje.y()
+		return personaje.position().x() == personaje.limiteDerecha()
 	}
 	
 	method troncoMueveRanaA(tronco){
@@ -40,11 +40,11 @@ object izquierda{
 	}
 	
 	method volverAPosicionInicial(personaje){
-		personaje.position(game.at(personaje.y(), personaje.posicionInicial().y()))
+		personaje.position(game.at(personaje.limiteDerecha(), personaje.posicionInicial().y()))
 	}
 	
 	method estaEnLimite(personaje){
-		return personaje.position().x() == personaje.x()
+		return personaje.position().x() == personaje.limiteIzquierda()
 	}
 	
 	method troncoMueveRanaA(tronco){

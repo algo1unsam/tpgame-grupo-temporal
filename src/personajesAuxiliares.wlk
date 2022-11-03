@@ -18,8 +18,8 @@ class ObjetoMovil{
 	var property position = posicionInicial
 	var property velocidad = 0
 	var property movimiento
-	var property x = self.limite().get(0)
-	var property y = self.limite().get(1)
+	var property limiteIzquierda = self.limite().get(0)
+	var property limiteDerecha = self.limite().get(1)
 	
 	// METODO PARA EL MOVIMIENTO 
 	method moverse(){
