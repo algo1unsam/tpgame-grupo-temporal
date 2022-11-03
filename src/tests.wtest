@@ -1,6 +1,60 @@
+import wollok.game.*
+import personajes.*
+import autos.*
+import soportes.*
+import filasExteriores.*
+import rio.*
+import personajesAuxiliares.*
+import interfaz.*
+import sonidos.*
+import movimiento.*
 
-test "testX" {
+describe "test del juego"{
+	const auto = new Vehiculo(velocidad = 600, image = "assets/auto3.png", movimiento = izquierda, posicionInicial = game.at(0,2))
+	
+	method initialize(){
+		game.clear()
+		botonInicio.setearObjetos()
+		botonInicio.crearRana()
+		soundProducer.provider(soundProviderMock)
+		musica.reproducir(soundProviderMock)
+	}
 
-	assert.that(true)
-
+	test "la rana pierde una vida al ser atropellada por un auto"{
+		auto.atropellar(rana)
+		assert.equals(2, rana.cantVidas())
+	}
+	
+	test "la rana pierde vida al tocar el agua y no haber soporte"{
+		rana.position(game.at(19,8))
+		rana.chequearColision()
+		assert.equals(2, rana.cantVidas())
+	}
+	
+	test "la rana no pierde vida si esta sobre un tronco en el agua"{
+		// (11, 9) es la posicion inicial de uno de los troncos 
+		rana.position(game.at(0,8))
+		rana.chequearColision()
+		
+		assert.equals(3, rana.cantVidas())
+	}
+	
+	test "al agarrar una mosca, sube el score"{
+		// la mosca tiene un collide que cuando choca con la rana, llama al metodo
+		// .subirPuntos() de score
+		score.subirPuntos()
+		assert.equals(1,score.puntos())
+	}
+	
+	test "al tener 0 vidas cambia a la pantalla de derrota"{
+		3.times({i=>rana.perderVida()})
+		assert.equals("assets/pantallaDerrota.png",interfaz.image())
+	}
+	
+	test "al llegar a 5 puntos cambia a victoria"{
+		5.times({i=>score.subirPuntos()})
+		assert.equals("assets/pantallaVictoria.png",interfaz.image())
+	}
+	
 }
+
