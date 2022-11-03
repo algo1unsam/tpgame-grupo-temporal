@@ -47,19 +47,15 @@ class Soporte inherits ObjetoMovil{
 object soportes inherits Conjunto{
 	const velocidad = [600,400,300,650]
 	
-	var property subc1 = self.listaSoportes(velocidad.get(0), 8, derecha)
-
-	var property subc2 = self.listaSoportes(velocidad.get(1), 9, izquierda)
-
-	var property subc3 = self.listaSoportes(velocidad.get(2), 10, derecha)
-						 
-	var property subc4 = self.listaSoportes(velocidad.get(1), 11, izquierda)
-						 
-	var property subc5 = self.listaSoportes(velocidad.get(3), 12, derecha)
+	var property listaSoportes = [self.listaSoportes(velocidad.get(0), 8, derecha),
+								self.listaSoportes(velocidad.get(1), 9, izquierda),
+								self.listaSoportes(velocidad.get(2), 10, derecha),
+								self.listaSoportes(velocidad.get(1), 11, izquierda),
+								self.listaSoportes(velocidad.get(3), 12, derecha)]
 	
 	// DEVUELVE TODOS LOS SUBCONJUNTOS
 	override method todos(){
-		return self.subc1() + self.subc2() + self.subc3() + self.subc4() + self.subc5()
+		return listaSoportes.flatten()
 	}
 	
 	// CREA UNA LISTA DE CIERTA CANTIDAD DE SOPORTES, VARIANDO LA POSICION DE CADA UNO DE ACUERDO A LA DISTANCIA (RELATIVA A LAS FILAS) ENTRE ELLOS
